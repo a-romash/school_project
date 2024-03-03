@@ -1,0 +1,80 @@
+* {box-sizing: border-box}
+.text-shadow-1 {
+  padding: 16px;
+  background: #f4eeffa8;      /* Цвет верхней части - шапки */
+  color: #33375b;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+
+
+body{
+  background: #f4eeffa8;      /* Цвет фона всего сайта */
+  font-family: 'Arial';
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  zoom: 75%;
+  
+}
+/* добавить паддинг в контейнер */
+.container {
+  padding: 16px;
+}
+
+/* Поля для ввода */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border-radius: 10px;
+  background: #dcd6f7db;      /* Цвет фона полей для ввода */
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #a5aae0;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #596e79;    /* Цвет полосочек, которые тонкие сверху и снизу */
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit/register button */
+.registerbtn {
+  background-color: #424874;    /* Цвет кнопки регистрации */
+  color: #f7f7f7;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border-radius: 50px;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity:1;
+}
+
+/* Add a blue text color to links dodgerblue */
+a {
+  color: solid #424874 ;    /* Цвет текста на кнопке регистрации */
+}
+c {
+  color: #424874;
+  font-family: 'Arial';     /* Цвет текста для подписей к полям */
+ }      
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #a5aae0;    /* Цвет фона самого нижнего элемента */
+  text-align: center;
+  font: 1.5em;
+  border-radius: 20px 20px 20px 20px ;;
+}
+

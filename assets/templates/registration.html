@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Сайт демка</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">    <!-- просмотр для телефона -->
+
+
+    <!-- добавляем Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+          <link rel="stylesheet" href="static/css/enter.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="text-shadow-1">
+  <h1>РЕГИСТРАЦИЯ</h1>
+    <p>Пожалуйста, заполните форму, чтобы создать аккаунт.</p>
+    <hr>
+</div>
+  <div class="container">
+      <!-- поле с вводом логина-->
+      <div>
+        <label for="email"><b><c href="#">Логин</c></b></label>
+        <input type="text" placeholder="Введите логин" name="login" required>
+        </div>
+
+      <!-- поле с вводом имени -->
+      <div>
+      <label for="name"><b><c href="#">Имя</c></b></label>
+      <input type="text" placeholder="Введите имя" name="name" required>
+      </div>
+
+      <!-- поле с вводом фамилии -->
+      <div>
+      <label for="surname"><b><c href="#">Фамилия</c></b></label>
+      <input type="text" placeholder="Введите фамилию" name="surname" required>
+      </div>
+
+      <!-- поле с вводом школы -->
+      <div>
+      <label for="school"><b><c href="#">Школа</c></b></label>
+      <input type="text" placeholder="Введите школу" name="school" required>
+      </div>
+
+      <!-- поле с выбором ученик/учитель -->
+
+      <div class="radio">
+      <span><c href="#">Вы</c></span>
+      <label>
+        <input type="radio" name="type" value="student">Ученик
+        <div class="radio-control stident"></div>
+      </label>
+      <label>
+        <input type="radio" name="type" value="teacher">Учитель
+        <div class="radio-control teacher"></div>
+      </label>
+      </div>
+
+
+      <!-- поле с вводом буквы класса-->
+      <div>
+      <label for="letter_of_class"><b><c href="#">Если вы ученик - введите букву класса</c></b></label>
+      <input type="text" placeholder="Введите букву класса" name="letter">
+      </div>
+
+      <!-- поле с вводом пароля -->
+      <div>
+      <label for="psw"><b><c href="#">Пароль</c></b></label>
+      <input type="password" placeholder="Введите пароль" name="pw" required>
+      </div>
+
+      <div class="triangle"></div>
+      <!-- поле повтор пароля -->
+      <div>
+      <label for="psw-repeat"><b><c href="#"> Повторите пароль </c> </b></label>
+      <input type="password" placeholder="Повторите пароль" name="pw-repeat" required>
+      </div>
+    <hr>
+
+    <p>Создавая аккаунт, вы подтверждаете, что согласны с <a href="">Нами</a>.</p>
+    <button type="submit" class="registerbtn">РЕГИСТРАЦИЯ</button>
+  </div>
+
+  <div class="container signin">
+    <p>Уже есть аккаунт? <a href="/login">Войдите</a>.</p>
+  </div>
+</form>
+</body>
+</html>
