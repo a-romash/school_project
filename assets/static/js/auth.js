@@ -1,5 +1,6 @@
 var button = document.getElementById("enter");
 var error = document.getElementById("error")
+var error_fields = document.getElementById("error_fields")
 
 // Добавление слушателя событий для кнопки
 button.addEventListener("click", submitForm);
@@ -7,6 +8,14 @@ button.addEventListener("click", submitForm);
 function submitForm() {
     var login = document.getElementById('login').value;
     var pw = document.getElementById('pw').value;
+
+    error_fields.style.display = 'none';
+    error.style.display = 'none';
+
+    if (login === '' || pw === '') {
+        error_fields.style.display = 'block';
+        return
+    }
 
     var data = {
         login: login,
