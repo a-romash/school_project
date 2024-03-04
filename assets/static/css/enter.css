@@ -78,3 +78,13 @@ c {
   border-radius: 20px 20px 20px 20px ;;
 }
 
+.error {
+  background-color: #ff6774;  
+  text-align: center;
+  font: 1.5em;
+  border-radius: 20px 20px 20px 20px ;;
+  width: fit-content;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 0;
+}

@@ -27,19 +27,26 @@
       <!-- поле с вводом логина -->
       <div>
       <label for="name"><b><c href="#">Логин</c></b></label>
-      <input type="text" placeholder="Введите логин" name="login" required>
+      <input type="text" placeholder="Введите логин" name="login" id="login" required>
       </div>
 
       <!-- поле с вводом пароля -->
       <div>
       <label for="psw"><b><c href="#">Пароль</c></b></label>
-      <input type="password" placeholder="Введите пароль" name="pw" required>
+      <input type="password" placeholder="Введите пароль" name="pw" id="pw" required>
+
       </div>
+      <div class="container error" id="error" style="display: none;">
+        Неверный пароль или логин.
+      </div>
+      <button id="enter" type="submit" class="registerbtn">ВОЙТИ</button>
 
   </div>
   <div class="container signin">
     <p>Ещё не зарегистрированы? <a href="/register">Зарегистрироваться</a>.</p>
   </div>
 </form>
+
+<script src="/static/js/auth.js"></script>
 </body>
 </html>
