@@ -26,48 +26,65 @@
       <!-- поле с вводом логина-->
       <div>
         <label for="email"><b><c href="#">Логин</c></b></label>
-        <input type="text" placeholder="Введите логин" name="login" required>
+        <input type="text" placeholder="Введите логин" name="login" id="login" required>
         </div>
 
       <!-- поле с вводом имени -->
       <div>
       <label for="name"><b><c href="#">Имя</c></b></label>
-      <input type="text" placeholder="Введите имя" name="name" required>
+      <input type="text" placeholder="Введите имя" name="name" id="name" required>
       </div>
 
       <!-- поле с вводом фамилии -->
       <div>
       <label for="surname"><b><c href="#">Фамилия</c></b></label>
-      <input type="text" placeholder="Введите фамилию" name="surname" required>
+      <input type="text" placeholder="Введите фамилию" name="surname" id="surname" required>
       </div>
 
       <!-- поле с вводом школы -->
       <div>
       <label for="school"><b><c href="#">Школа</c></b></label>
-      <input type="text" placeholder="Введите школу" name="school" required>
+      <input type="text" placeholder="Введите школу" name="school" id="sch" required>
       </div>
 
       <!-- поле с вводом пароля -->
       <div>
-      <label for="psw"><b><c href="#">Пароль</c></b></label>
-      <input type="password" placeholder="Введите пароль" name="pw" required>
+      <label for="psw"><b><c href="#" >Пароль</c></b></label>
+      <input type="password" placeholder="Введите пароль" name="pw" id="pw" required>
       </div>
 
       <div class="triangle"></div>
       <!-- поле повтор пароля -->
       <div>
       <label for="psw-repeat"><b><c href="#"> Повторите пароль </c> </b></label>
-      <input type="password" placeholder="Повторите пароль" name="pw-repeat" required>
+      <input type="password" placeholder="Повторите пароль" name="pw-repeat" id="pw_rep" required>
       </div>
     <hr>
 
+    <div class="container error" id="error_unknown" style="display: none;">
+      Неизвестная ошибка, попробуйте позже (Status code: 500)
+    </div>
+
+    <div class="container error" id="error_login" style="display: none;">
+      Пользователь с данным login существует
+    </div>
+
+    <div class="container error" id="error_pw" style="display: none;">
+      Пароли должны совпадать
+    </div>
+
+    <div class="container error" id="error_all" style="display: none;">
+      Не все поля заполнены
+    </div>
+
     <p>Создавая аккаунт, вы подтверждаете, что согласны с <a href="">Нами</a>.</p>
-    <button type="submit" class="registerbtn">РЕГИСТРАЦИЯ</button>
+    <button type="submit" class="registerbtn" id="submit">РЕГИСТРАЦИЯ</button>
   </div>
 
   <div class="container signin">
     <p>Уже есть аккаунт? <a href="/login">Войдите</a>.</p>
   </div>
 </form>
+<script src="/static/js/registration.js"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@ func (s *Server) SetRoutes(serveMux *mux.Router) {
 	// serveMux.HandleFunc("/api", s.HandleAPIRoutes)
 	serveMux.HandleFunc("/api/ping", s.HandlePing).Methods("GET")
 	serveMux.HandleFunc("/api/login", s.HandleAPILogin).Methods("POST")
-	// serveMux.HandleFunc("/api/register", s.HandleAPIRegister).Methods("POST")
+	serveMux.HandleFunc("/api/register", s.HandleAPIRegister).Methods("POST")
 
 	serveMux.HandleFunc("/register", s.HandleRegister)
 	serveMux.HandleFunc("/login", s.HandleLogin)

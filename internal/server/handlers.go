@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"project/pkg/model"
 )
 
 func (s *Server) HandlePing(w http.ResponseWriter, r *http.Request) {
@@ -31,16 +32,44 @@ func (s *Server) HandleMain(w http.ResponseWriter, r *http.Request) {
 
 func (s *Server) HandleAPILogin(w http.ResponseWriter, r *http.Request) {
 	var data struct {
-		Login string
-		Pw    string
+		Login string `json:"login"`
+		Pw    string `json:"pw"`
 	}
 
 	err := json.NewDecoder(r.Body).Decode(&data)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
-		s.logger.Error("Error on /api/auth:\n" + err.Error())
+		s.logger.Error("Error on /api/login:\n" + err.Error())
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	s.logger.Info("handled /api/auth")
+	s.logger.Info("handled /api/login")
+}
+
+func (s *Server) HandleAPIRegister(w http.ResponseWriter, r *http.Request) {
+	var data struct {
+		Login    string `json:"login"`
+		Name     string `json:"name"`
+		Lastname string `json:"lastname"`
+		School   string `json:"school"`
+		Pw       string `json:"pw"`
+	}
+
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		s.logger.Error("Error on /api/register:\n" + err.Error())
+		return
+	}
+
+	newUser, err := model.CreateUser(data.Login, data.Name, data.Lastname, data.School, data.Pw)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		s.logger.Error("Error on /api/register:\n" + err.Error())
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	s.logger.Info("handled /api/register")
+	s.logger.Info("registered new user:\nName: " + newUser.Name + "\nLastname: " + newUser.Lastname + "\nSchool: " + newUser.School + "\nLogin: " + newUser.Login)
 }
