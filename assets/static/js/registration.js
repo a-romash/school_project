@@ -21,12 +21,12 @@ function submitForm() {
     error_all.style.display = 'none';
     error_pw.style.display = 'none';
 
-    if (pw !== pw_rep) {
-        error_pw.style.display = 'block';
-        return
-    }
     if (login === '' || name === '' || surname === '' || school === '' || pw === '' || pw_rep === '') {
         error_all.style.display = 'block';
+        return
+    }
+    if (pw !== pw_rep) {
+        error_pw.style.display = 'block';
         return
     }
 
