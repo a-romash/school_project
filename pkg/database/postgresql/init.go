@@ -3,6 +3,7 @@ package postgresql
 import (
 	"context"
 	"log"
+	"log/slog"
 	"project/pkg/config"
 	"sync"
 	"time"
@@ -25,13 +26,14 @@ func Connect() (db *Posrgresql, err error) {
 			time.Sleep(3 * time.Second)
 			continue
 		}
-		log.Printf("pool returned from connect: idk from where so i am really lazy for normal logs tho")
+		log.Printf("pool returned from connect: idk from where so i am really lazy for normal logs")
 		db = &Posrgresql{
 			pool: p,
 		}
 		return db, nil
 	}
 	err = errors.Wrap(err, "timed out waiting to connect postgres")
+	slog.Error("timed out waiting to connect postgres")
 	return nil, err
 }
 
@@ -49,6 +51,7 @@ func ConnectWithConfig(config *pgxpool.Config) (db *Posrgresql, err error) {
 		return db, nil
 	}
 	err = errors.Wrap(err, "timed out waiting to connect postgres")
+	slog.Error("timed out waiting to connect postgres")
 	return nil, err
 }
 
@@ -82,17 +85,17 @@ func Config() *pgxpool.Config {
 	dbConfig.ConnConfig.ConnectTimeout = defaultConnectTimeout
 
 	dbConfig.BeforeAcquire = func(ctx context.Context, c *pgx.Conn) bool {
-		log.Println("Before acquiring the connection pool to the database!!")
+		slog.Debug("Before acquiring the connection pool to the database!!")
 		return true
 	}
 
 	dbConfig.AfterRelease = func(c *pgx.Conn) bool {
-		log.Println("After releasing the connection pool to the database!!")
+		slog.Debug("After releasing the connection pool to the database!!")
 		return true
 	}
 
 	dbConfig.BeforeClose = func(c *pgx.Conn) {
-		log.Println("Closed the connection pool to the database!!")
+		slog.Debug("Closed the connection pool to the database!!")
 	}
 
 	return dbConfig
