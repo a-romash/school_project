@@ -13,31 +13,17 @@ import (
 	"github.com/pkg/errors"
 )
 
-type Posrgresql struct {
+type Postgresql struct {
 	pool      *pgxpool.Pool
 	closeOnce sync.Once
 }
 
-func Connect() (db *Posrgresql, err error) {
+func Connect() (db *Postgresql, err error) {
 	config := Config()
-	for i := 0; i < 5; i++ {
-		p, err := pgxpool.NewWithConfig(context.Background(), config)
-		if err != nil || p == nil {
-			time.Sleep(3 * time.Second)
-			continue
-		}
-		log.Printf("pool returned from connect: idk from where so i am really lazy for normal logs")
-		db = &Posrgresql{
-			pool: p,
-		}
-		return db, nil
-	}
-	err = errors.Wrap(err, "timed out waiting to connect postgres")
-	slog.Error("timed out waiting to connect postgres")
-	return nil, err
+	return ConnectWithConfig(config)
 }
 
-func ConnectWithConfig(config *pgxpool.Config) (db *Posrgresql, err error) {
+func ConnectWithConfig(config *pgxpool.Config) (db *Postgresql, err error) {
 	for i := 0; i < 5; i++ {
 		p, err := pgxpool.NewWithConfig(context.Background(), config)
 		if err != nil || p == nil {
@@ -45,9 +31,15 @@ func ConnectWithConfig(config *pgxpool.Config) (db *Posrgresql, err error) {
 			continue
 		}
 		log.Printf("pool returned from connect: idk from where so i am really lazy for normal logs tho")
-		db = &Posrgresql{
+		db = &Postgresql{
 			pool: p,
 		}
+		err = Init(db.pool)
+		if err != nil {
+			slog.Error("error initing database")
+			return nil, err
+		}
+		slog.Info("database was successfully init")
 		return db, nil
 	}
 	err = errors.Wrap(err, "timed out waiting to connect postgres")
@@ -55,7 +47,7 @@ func ConnectWithConfig(config *pgxpool.Config) (db *Posrgresql, err error) {
 	return nil, err
 }
 
-func (db *Posrgresql) Close() {
+func (db *Postgresql) Close() {
 	db.closeOnce.Do(func() {
 		db.pool.Close()
 	})
@@ -99,4 +91,26 @@ func Config() *pgxpool.Config {
 	}
 
 	return dbConfig
+}
+
+func Init(p *pgxpool.Pool) (err error) {
+	const sql string = `
+	CREATE TABLE IF NOT EXISTS tests (
+		Uri       VARCHAR(255) NOT NULL,
+		AuthorId  VARCHAR(255) NOT NULL,
+		Solutions JSONB[],
+		QA        JSONB NOT NULL
+	);
+
+	CREATE TABLE IF NOT EXISTS users (
+		id SERIAL PRIMARY KEY,
+		login VARCHAR(255) UNIQUE NOT NULL,
+		name VARCHAR(255) NOT NULL,
+		lastname VARCHAR(255) NOT NULL,
+		school VARCHAR(255) NOT NULL,
+		hashedPassword BYTEA NOT NULL
+	);
+	`
+	_, err = p.Exec(context.Background(), sql)
+	return err
 }

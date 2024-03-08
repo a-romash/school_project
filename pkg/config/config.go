@@ -17,11 +17,11 @@ type IConfig struct {
 var Config *IConfig
 var once sync.Once
 
-func Init(logger slog.Logger) {
+func Init() {
 	once.Do(func() {
 		err := godotenv.Load()
 		if err != nil {
-			logger.Error("Error loading .env file")
+			slog.Error("Error loading .env file")
 			os.Exit(1)
 		}
 
@@ -31,11 +31,11 @@ func Init(logger slog.Logger) {
 			Postgres_conn:  os.Getenv("POSTGRES_CONN"),
 		}
 		if Config.Postgres_conn == "" {
-			logger.Error("POSTGRES_CONN missed in .env")
+			slog.Error("POSTGRES_CONN missed in .env")
 			os.Exit(1)
 		}
 		if Config.Server_address == "" && Config.Server_port == "" {
-			logger.Error("SERVER_ADDRESS and SERVER_PORT missed in .env")
+			slog.Error("SERVER_ADDRESS and SERVER_PORT missed in .env")
 			os.Exit(1)
 		}
 	})

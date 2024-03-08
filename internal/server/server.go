@@ -3,19 +3,20 @@ package server
 import (
 	"log/slog"
 	"net/http"
+	"project/pkg/database/postgresql"
 
 	"github.com/gorilla/mux"
 )
 
 type Server struct {
 	address string
-	logger  *slog.Logger
+	db      *postgresql.Postgresql
 }
 
-func NewServer(address string, logger *slog.Logger) *Server {
+func NewServer(address string, db *postgresql.Postgresql) *Server {
 	return &Server{
 		address: address,
-		logger:  logger,
+		db:      db,
 	}
 }
 
@@ -24,7 +25,7 @@ func (s *Server) Start() error {
 
 	s.SetRoutes(serveMux)
 
-	s.logger.Info("server has been started", "address", s.address)
+	slog.Info("server has been started", "address", s.address)
 
 	err := http.ListenAndServe(s.address, serveMux)
 	if err != http.ErrServerClosed {

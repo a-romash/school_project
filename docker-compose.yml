@@ -1,0 +1,70 @@
+version: "3.9"
+
+services:
+  server:
+    container_name: server
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    command: ./server
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    networks:
+      - app_network
+    depends_on:
+      - postgresql
+
+  postgresql:
+    container_name: postgresql
+    image: postgres
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database
+    networks:
+      - app_network
+      # - postgres_network
+    volumes:
+      - ../2. Init Database:/docker-entrypoint-initdb.d
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d database"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4:7.2
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "nudopustimemail@pochta.com"
+      PGADMIN_DEFAULT_PASSWORD: "pgadminpwd"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+    networks:
+      # - postgres_network
+      - app_network
+
+volumes:
+  pgdata:
+  pgadmin-data:
+
+networks:
+  app_network:
+    driver: bridge
+  # postgres_network:
+  #   driver: bridge

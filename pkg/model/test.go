@@ -5,4 +5,5 @@ type Test struct {
 	AuthorId  string
 	Solutions []*Solution
 	QA        map[string]string // question/answer; map, where key - question, value - answer
+	Id        int
 }

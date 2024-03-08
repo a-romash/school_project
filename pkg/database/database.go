@@ -9,12 +9,12 @@ import (
 
 type Database interface {
 	RegisterNewUser(*model.User) error
-	GetUser(id string) (*model.User, error)
+	GetUser(login string) (*model.User, error)
 	UpdateUser(*model.User) error
-	DeleteUser(id string) error
+	DeleteUser(id int) error
 
 	CreateNewTest(*model.Test) error
-	GetSolutionsForTest(id string) (*model.Solution, error)
+	GetSolutionsForTest(id int) (*model.Solution, error)
 	PutSolutionToTest(*model.Test) error
 	UpdateTest(*model.Test) error
 	UpdateStatistics(*model.Solution) error

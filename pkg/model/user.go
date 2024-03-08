@@ -7,11 +7,12 @@ import (
 )
 
 type User struct {
-	Login          string `json:"login"`
-	Name           string `json:"name"`
-	Lastname       string `json:"lastname"`
-	School         string `json:"school"`
-	hashedPassword []byte
+	Login          string `json:"login" db:"login"`
+	Name           string `json:"name" db:"name"`
+	Lastname       string `json:"lastname" db:"lastname"`
+	School         string `json:"school" db:"school"`
+	Id             int    `db:"id"`
+	HashedPassword []byte `json:"-" db:"hashedpassword"`
 }
 
 func CreateUser(login, name, lastname, school, password string) (u *User, err error) {
@@ -24,13 +25,13 @@ func CreateUser(login, name, lastname, school, password string) (u *User, err er
 		Name:           name,
 		Lastname:       lastname,
 		School:         school,
-		hashedPassword: hPassword,
+		HashedPassword: hPassword,
 	}
 	return u, nil
 }
 
 func (u *User) CheckPassword(password string) bool {
-	err := bcrypt.CompareHashAndPassword(u.hashedPassword, []byte(password))
+	err := bcrypt.CompareHashAndPassword(u.HashedPassword, []byte(password))
 	// If password doesn't match, err will be non-nil and it returns false,
 	// else password is correct and it return true
 	return err == nil

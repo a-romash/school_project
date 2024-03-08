@@ -49,7 +49,7 @@ function submitForm() {
                 console.log('Data sent successfully');
                 window.location.href = "/";
             } else {
-                if (xhr.responseText === 'Login is already in use') {
+                if (xhr.status == 409) {
                     error_login.style.display = 'block';
                 } else {
                     error_unknown.style.display = 'block';
