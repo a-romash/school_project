@@ -5,7 +5,7 @@
 Отправная точка: http://localhost:8080/ (если вы запускете на локалке)
 
 ## Запуск проекта: 
-0) Установите [docker engine](https://docs.docker.com/engine/install/) и [docker compose](https://docs.docker.com/compose/install/) (обязательно версию 2.24.5 и новее, иначе на Windows не будет билдить; пока что компоуза нет, но скоро будет, обещаю)
+0) Установите [docker engine](https://docs.docker.com/engine/install/) и [docker compose](https://docs.docker.com/compose/install/) (обязательно версию 2.24.5 и новее, иначе на Windows не будет билдить)
 1) `cd <"path/to/project/root/directory">`
 2) `docker compose up -d` (без флага `-d` если хотите, чтобы выводились логи докера в консоль)
 
@@ -20,21 +20,19 @@
 Например:
 - Было:
 ```yaml
-  rabbitmq:
-    container_name: rabbitmq
-    image: rabbitmq:management
+  postgresql:
+    container_name: postgresql
+    image: postgres
     ports:
-    - 8081:15672
-    - 5673:5672
+      - 5432:5432
 ```
 - Стало:
 ```yaml
-  rabbitmq:
-    container_name: rabbitmq
-    image: rabbitmq:management
+  postgresql:
+    container_name: postgresql
+    image: postgres
     ports:
-    - 8090:15672
-    - 5812:5672
+      - 8081:5432
 ```
 
 ## Костыли
