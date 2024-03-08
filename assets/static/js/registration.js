@@ -8,6 +8,24 @@ var error_all = document.getElementById("error_all")
 // Добавление слушателя событий для кнопки
 button.addEventListener("click", submitForm);
 
+function getCookie(name) {
+    let cookieArr = document.cookie.split(";");
+  
+    for (let i = 0; i < cookieArr.length; i++) {
+      let cookiePair = cookieArr[i].split("=");
+      if (name === cookiePair[0].trim()) {
+        return decodeURIComponent(cookiePair[1]);
+      }
+    }
+  
+    return null;
+}
+
+let t = getCookie("t");
+if (t !== null) {
+    window.location.href = "/";
+}
+
 function submitForm() {
     var login = document.getElementById('login').value;
     var name = document.getElementById('name').value;
@@ -46,10 +64,9 @@ function submitForm() {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
-                console.log('Data sent successfully');
-                window.location.href = "/";
+                window.location.href = "/login";
             } else {
-                if (xhr.status == 409) {
+                if (xhr.status === 409) {
                     error_login.style.display = 'block';
                 } else {
                     error_unknown.style.display = 'block';

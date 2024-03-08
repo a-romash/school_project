@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"net/http"
 	"project/pkg/model"
+	"time"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
@@ -64,7 +65,32 @@ func (s *Server) HandleAPILogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	sessionToken, err := s.db.NewToken(user.Login)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		slog.Error("Error on /api/login:\n" + err.Error())
+		return
+	}
+
+	var t struct {
+		Login      string    `json:"login"`
+		Token      string    `json:"t"`
+		Expires_at time.Time `json:"expires_at"`
+	}
+
+	t.Login = sessionToken.Login
+	t.Token = sessionToken.Token.String()
+	t.Expires_at = sessionToken.Expires_at
+
+	byteToken, err := json.Marshal(t)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		slog.Error("Error on /api/login:\n" + err.Error())
+		return
+	}
+
 	w.WriteHeader(http.StatusOK)
+	w.Write(byteToken)
 	slog.Info("handled /api/login")
 }
 

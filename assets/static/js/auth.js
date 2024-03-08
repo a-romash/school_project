@@ -5,6 +5,33 @@ var error_fields = document.getElementById("error_fields")
 // Добавление слушателя событий для кнопки
 button.addEventListener("click", submitForm);
 
+function getCookie(name) {
+    let cookieArr = document.cookie.split(";");
+  
+    for (let i = 0; i < cookieArr.length; i++) {
+      let cookiePair = cookieArr[i].split("=");
+      if (name === cookiePair[0].trim()) {
+        return decodeURIComponent(cookiePair[1]);
+      }
+    }
+  
+    return null;
+}
+
+function setCookie(key, value, d) {
+    var expires = "";
+    if (d) {
+        var date = new Date(d);
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = key + "=" + value + expires + "; path=/";
+}
+
+let t = getCookie("t");
+if (t !== null) {
+    window.location.href = "/";
+}
+
 function submitForm() {
     var login = document.getElementById('login').value;
     var pw = document.getElementById('pw').value;
@@ -30,7 +57,8 @@ function submitForm() {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
-                console.log('Data sent successfully');
+                var response = JSON.parse(xhr.responseText);
+                setCookie("t", response.t, response.expires_at)
                 window.location.href = "/";
             } else {
                 error.style.display = 'block';

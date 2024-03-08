@@ -96,7 +96,7 @@ func Config() *pgxpool.Config {
 func Init(p *pgxpool.Pool) (err error) {
 	const sql string = `
 	CREATE TABLE IF NOT EXISTS tests (
-		Uri       VARCHAR(255) NOT NULL,
+		Uri       VARCHAR(255) UNIQUE NOT NULL,
 		AuthorId  VARCHAR(255) NOT NULL,
 		Solutions JSONB[],
 		QA        JSONB NOT NULL
@@ -110,7 +110,14 @@ func Init(p *pgxpool.Pool) (err error) {
 		school VARCHAR(255) NOT NULL,
 		hashedPassword BYTEA NOT NULL
 	);
+
+	CREATE TABLE IF NOT EXISTS tokens (
+		login VARCHAR(255) REFERENCES users(login),
+		token UUID UNIQUE NOT NULL,
+		expires_at TIMESTAMP NOT NULL
+	);
 	`
+
 	_, err = p.Exec(context.Background(), sql)
 	return err
 }
