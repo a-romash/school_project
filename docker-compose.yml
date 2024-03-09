@@ -43,8 +43,8 @@ services:
       start_period: 10s
 
   pgadmin:
-    container_name: pgadmin_container
-    image: dpage/pgadmin4:7.2
+    container_name: pgadmin
+    image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: "nudopustimemail@pochta.com"
       PGADMIN_DEFAULT_PASSWORD: "pgadminpwd"
