@@ -12,6 +12,7 @@ type IConfig struct {
 	Server_address string
 	Server_port    string
 	Postgres_conn  string
+	Debug          string
 }
 
 var Config *IConfig
@@ -29,6 +30,7 @@ func Init() {
 			Server_address: os.Getenv("SERVER_ADDRESS"),
 			Server_port:    os.Getenv("SERVER_PORT"),
 			Postgres_conn:  os.Getenv("POSTGRES_CONN"),
+			Debug:          os.Getenv("DEBUG"),
 		}
 		if Config.Postgres_conn == "" {
 			slog.Error("POSTGRES_CONN missed in .env")

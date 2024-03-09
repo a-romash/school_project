@@ -7,9 +7,11 @@ import (
 	"html/template"
 	"log/slog"
 	"net/http"
+	"project/pkg/database/postgresql"
 	"project/pkg/model"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
 )
@@ -37,6 +39,27 @@ func (s *Server) HandleMain(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) HandleAPILogin(w http.ResponseWriter, r *http.Request) {
+	string_token := r.Header.Get("t")
+	slog.Debug("token: " + string_token)
+	if string_token != "null" && string_token != "" {
+		session_token, _ := uuid.Parse(string_token)
+		err := s.db.ValidateToken(session_token)
+		if err != nil {
+			if _, ok := err.(postgresql.ErrTokenExpired); ok {
+				slog.Debug("token is expired: " + session_token.String())
+				http.Error(w, err.Error(), http.StatusUnauthorized)
+				return
+			}
+			slog.Error("error while validating token")
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			slog.Error("Error on /api/login:\n" + err.Error())
+			return
+		}
+		slog.Debug("token is ok")
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
 	var data struct {
 		Login string `json:"login"`
 		Pw    string `json:"pw"`
@@ -67,7 +90,7 @@ func (s *Server) HandleAPILogin(w http.ResponseWriter, r *http.Request) {
 
 	sessionToken, err := s.db.NewToken(user.Login)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		slog.Error("Error on /api/login:\n" + err.Error())
 		return
 	}

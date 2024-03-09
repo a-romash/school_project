@@ -3,6 +3,10 @@ version: "3.9"
 services:
   server:
     container_name: server
+    env_file:
+      - .env
+    environment:
+      - DEBUG=false # possible values: true or false
     build: 
       context: .
       dockerfile: ./Dockerfile

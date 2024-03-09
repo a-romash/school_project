@@ -65,6 +65,21 @@ func (db *Postgresql) DeleteToken(token uuid.UUID) error {
 	return nil
 }
 
+func (db *Postgresql) DeleteTokensByLogin(login string) error {
+	const sql = `
+	DELETE FROM tokens
+	WHERE login = $1;
+	`
+
+	_, err := db.pool.Exec(context.Background(), sql, login)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type ErrTokenExpired error
+
 func (db *Postgresql) ValidateToken(token uuid.UUID) error {
 	const sql = `
 	SELECT *
@@ -83,7 +98,8 @@ func (db *Postgresql) ValidateToken(token uuid.UUID) error {
 	t := &tokens[0]
 	if time.Now().After(t.Expires_at) {
 		db.DeleteToken(token)
-		return errors.New("token is expired")
+		var e ErrTokenExpired = errors.New("token is expired")
+		return e
 	}
 	return nil
 }

@@ -27,9 +27,27 @@ function setCookie(key, value, d) {
     document.cookie = key + "=" + value + expires + "; path=/";
 }
 
+function deleteCookie(key) {
+    document.cookie = key + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
 let t = getCookie("t");
-if (t !== null) {
-    window.location.href = "/";
+if (t !== "" && t !== null) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/login', true);
+    xhr.setRequestHeader('t', t);
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                window.location.href = "/";
+            } else {
+                deleteCookie('t')
+            }
+        }
+    }
+
+    xhr.send();
 }
 
 function submitForm() {
@@ -44,7 +62,7 @@ function submitForm() {
         return
     }
 
-    var data = {
+    let data = {
         login: login,
         pw: pw
     };

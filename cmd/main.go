@@ -11,6 +11,20 @@ import (
 func main() {
 	config.Init()
 
+	var opts *slog.HandlerOptions
+
+	if config.Config.Debug == "true" {
+		opts = &slog.HandlerOptions{
+			Level: slog.LevelDebug,
+		}
+	} else {
+		opts = nil
+	}
+
+	logger := slog.New(slog.NewTextHandler(os.Stdout, opts))
+
+	slog.SetDefault(logger)
+
 	db, err := postgresql.Connect()
 	if err != nil {
 		slog.Error("failed connect to postgresql")

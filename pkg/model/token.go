@@ -8,7 +8,7 @@ import (
 
 type Token struct {
 	Login      string    `db:"login"`
-	Token      uuid.UUID `db:"t"`
+	Token      uuid.UUID `db:"token"`
 	Expires_at time.Time `db:"expires_at"`
 }
 

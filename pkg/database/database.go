@@ -17,6 +17,7 @@ type Database interface {
 	NewToken(login string) (*model.Token, error)
 	ValidateToken(token uuid.UUID) error
 	DeleteToken(token uuid.UUID) error
+	DeleteTokensByLogin(login string) error
 
 	CreateNewTest(*model.Test) error
 	GetSolutionsForTest(id int) (*model.Solution, error)
