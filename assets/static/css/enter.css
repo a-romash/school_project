@@ -1,7 +1,8 @@
-* {box-sizing: border-box}
+* {box-sizing: border-box
+}
 .text-shadow-1 {
   padding: 16px;
-  background: #f4eeffa8;      /* Цвет верхней части - шапки */
+  background: #f4eeff00;      /* Цвет верхней части - шапки */
   color: #33375b;
   letter-spacing: 0.1em;
   text-align: center;
@@ -10,28 +11,29 @@
 
 
 body{
-  background: #f4eeffa8;      /* Цвет фона всего сайта */
-  font-family: 'Arial';
+  background: linear-gradient(315deg, #9fb3d1 0%, #f5f7f7 100%);      /* Цвет фона всего сайта */
+  font-family: inherit;
   position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  zoom: 75%;
+  align-items: center;
+  margin: auto 27%;
+  width: 46%;
+  font-size: 1rem;
+  background-attachment: fixed;
   
 }
 /* добавить паддинг в контейнер */
 .container {
-  padding: 16px;
+  padding: auto;
 }
-
 /* Поля для ввода */
 input[type=text], input[type=password] {
+  box-shadow: 0 0 10px 5px rgba(132, 140, 214, 0.753);
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
   display: inline-block;
   border-radius: 10px;
-  background: #dcd6f7db;      /* Цвет фона полей для ввода */
+  background: #b8c6db7e;      /* Цвет фона полей для ввода */
 }
 
 input[type=text]:focus, input[type=password]:focus {
@@ -42,7 +44,7 @@ input[type=text]:focus, input[type=password]:focus {
 /* Overwrite default styles of hr */
 hr {
   border: 1px solid #596e79;    /* Цвет полосочек, которые тонкие сверху и снизу */
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 
 /* Set a style for the submit/register button */
@@ -67,7 +69,8 @@ a {
 }
 c {
   color: #424874;
-  font-family: 'Arial';     /* Цвет текста для подписей к полям */
+  font-size: 1rem;
+  font-family: inherit;     /* Цвет текста для подписей к полям */
  }      
 
 /* Set a grey background color and center the text of the "sign in" section */

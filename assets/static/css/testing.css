@@ -1,12 +1,12 @@
 /* Поле с вопросами */
 fieldset{
-          background-color:#00000;
+          background-color: #b8c6db7e;
           max-width:500px;
           border-radius: 10px;
-          box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
+          box-shadow: 0 0 10px 4.5px rgba(132, 140, 214, 0.753);
           width: 600px;
           overflow: hidden;
-          margin: auto;
+          margin: 20px auto;
           }
 
 /* Заголовок в первых двух вопросах */
@@ -19,13 +19,14 @@ fieldset{
 
 /* Основная часть: фон весей страницы, настройки шрифта */
 body{
-  background-color: #b8c6db;
-  background-image: linear-gradient(315deg, #b8c6db 0%, #f5f7f7 100%);
+  background: linear-gradient(315deg, #9fb3d1 0%, #f5f7f7 100%);
   font-family: inherit;
   margin: 0;
   font-size: 1.5rem;
   font-weight: 400;
   line-height: 1.5;
+  align-items: center;
+  background-attachment: fixed;
 
 }
 /* Список вопросов */
@@ -39,4 +40,22 @@ ul li{
 }
 ul li label{
   cursor: pointer;
+}
+
+input {
+  text-rendering: auto;
+  color: rgb(0, 0, 0);
+  border-color: #a8b3df;
+  border-radius: 0.25rem;
+  text-indent: 5px;
+  border-width: 100%;
+  display: inline-block;
+  text-align: start;
+  line-height: 1.8 ;
+  background-color: rgba(238, 240, 244, 0.589) ;
+  cursor: text;
+  margin: 0em;
+  padding: 1px 0px;
+  border-image: initial;
+  border-radius: 7px;
 }
