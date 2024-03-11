@@ -21,6 +21,7 @@ type Database interface {
 
 	CreateNewTest(*model.Test) error
 	GetSolutionsForTest(id int) (*model.Solution, error)
+	GetTest(id string) (*model.Test, error)
 	PutSolutionToTest(*model.Test) error
 	UpdateTest(*model.Test) error
 	UpdateStatistics(*model.Solution) error
