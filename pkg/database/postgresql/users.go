@@ -20,12 +20,49 @@ func (db *Postgresql) RegisterNewUser(user *model.User) error {
 	return err
 }
 
-func (db *Postgresql) GetUser(login string) (user *model.User, err error) {
+func (db *Postgresql) GetUserByLogin(login string) (user *model.User, err error) {
 	const sql = `
 	SELECT * FROM users WHERE login = $1
 	`
 
 	rows, _ := db.pool.Query(context.Background(), sql, login)
+	users, err := pgx.CollectRows(rows, pgx.RowToStructByName[model.User])
+	if err != nil {
+		return nil, err
+	}
+	if len(users) == 0 {
+		return nil, pgx.ErrNoRows
+	}
+	user = &users[0]
+	return user, nil
+}
+
+func (db *Postgresql) GetUserById(id int) (user *model.User, err error) {
+	const sql = `
+	SELECT * FROM users WHERE id = $1
+	`
+
+	rows, _ := db.pool.Query(context.Background(), sql, id)
+	users, err := pgx.CollectRows(rows, pgx.RowToStructByName[model.User])
+	if err != nil {
+		return nil, err
+	}
+	if len(users) == 0 {
+		return nil, pgx.ErrNoRows
+	}
+	user = &users[0]
+	return user, nil
+}
+
+func (db *Postgresql) GetUserByToken(token uuid.UUID) (user *model.User, err error) {
+	const sql = `
+	SELECT u.id, u.login, u.name, u.lastname, u.school, u.hashedPassword
+	FROM users u
+	JOIN tokens t ON u.login = t.login
+	WHERE t.token = $1;
+	`
+
+	rows, _ := db.pool.Query(context.Background(), sql, token)
 	users, err := pgx.CollectRows(rows, pgx.RowToStructByName[model.User])
 	if err != nil {
 		return nil, err

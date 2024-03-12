@@ -10,7 +10,9 @@ import (
 
 type Database interface {
 	RegisterNewUser(*model.User) error
-	GetUser(login string) (*model.User, error)
+	GetUserByLogin(login string) (*model.User, error)
+	GetUserById(id int) (*model.User, error)
+	GetUserByToken(token uuid.UUID) (*model.User, error)
 	UpdateUser(*model.User) error
 	DeleteUser(id int) error
 

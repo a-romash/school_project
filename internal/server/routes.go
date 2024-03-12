@@ -11,9 +11,12 @@ func (s *Server) SetRoutes(serveMux *mux.Router) {
 	serveMux.HandleFunc("/api/ping", s.HandlePing).Methods("GET")
 	serveMux.HandleFunc("/api/login", s.HandleAPILogin).Methods("POST")
 	serveMux.HandleFunc("/api/register", s.HandleAPIRegister).Methods("POST")
+	serveMux.HandleFunc("/api/createtest", s.HandleApiCreateNewTest).Methods("POST")
+	serveMux.HandleFunc("/api/gettest", s.HandleApiGetTest)
 
 	serveMux.HandleFunc("/register", s.HandleRegister)
 	serveMux.HandleFunc("/login", s.HandleLogin)
+	serveMux.HandleFunc("/test", s.HandleGetTest)
 	serveMux.HandleFunc("/", s.HandleMain)
 
 	serveMux.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("assets/static"))))
