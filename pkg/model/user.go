@@ -11,7 +11,7 @@ type User struct {
 	Name           string `json:"name" db:"name"`
 	Lastname       string `json:"lastname" db:"lastname"`
 	School         string `json:"school" db:"school"`
-	Id             int    `db:"id"`
+	Id             int    `json:"-" db:"id"`
 	HashedPassword []byte `json:"-" db:"hashedpassword"`
 }
 

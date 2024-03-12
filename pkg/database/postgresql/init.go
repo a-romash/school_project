@@ -95,13 +95,6 @@ func Config() *pgxpool.Config {
 
 func Init(p *pgxpool.Pool) (err error) {
 	const sql string = `
-	CREATE TABLE IF NOT EXISTS tests (
-		Uri       VARCHAR(255) UNIQUE NOT NULL,
-		AuthorId  VARCHAR(255) NOT NULL,
-		Solutions JSONB[],
-		QA        JSONB NOT NULL
-	);
-
 	CREATE TABLE IF NOT EXISTS users (
 		id SERIAL PRIMARY KEY,
 		login VARCHAR(255) UNIQUE NOT NULL,
@@ -113,8 +106,28 @@ func Init(p *pgxpool.Pool) (err error) {
 
 	CREATE TABLE IF NOT EXISTS tokens (
 		login VARCHAR(255) REFERENCES users(login),
-		token UUID UNIQUE NOT NULL,
+		token UUID PRIMARY KEY,
 		expires_at TIMESTAMP NOT NULL
+	);
+
+	CREATE TABLE IF NOT EXISTS tests (
+		id UUID PRIMARY KEY,
+		author VARCHAR(255) NOT NULL,
+		author_id INT REFERENCES users(id),
+		solutions_id INT[],
+		questions JSONB[] NOT NULL,
+		answers VARCHAR(255)[] NOT NULL,
+		created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+		updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+	);
+
+	CREATE TABLE IF NOT EXISTS solutions (
+		author VARCHAR(255) NOT NULL,
+		class VARCHAR(255) NOT NULL,
+		answers VARCHAR(255)[] NOT NULL, 
+		result INT NOT NULL,
+		test_id UUID REFERENCES tests(id),
+		id SERIAL PRIMARY KEY
 	);
 	`
 
