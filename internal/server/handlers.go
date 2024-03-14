@@ -46,7 +46,8 @@ func (s *Server) HandleGetTest(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) HandleMain(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "There's all routes for now that handles and works:\n- /login\n- /register")
+	tmpl, _ := template.ParseFiles("assets/templates/main.html")
+	tmpl.Execute(w, nil)
 	slog.Info("handled /")
 }
 
