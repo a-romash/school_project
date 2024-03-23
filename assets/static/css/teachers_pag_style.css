@@ -1,10 +1,15 @@
 /* Поле с вопросами */
+h1{
+ text-align: center;
+ font-family: inherit;
+}
+
 fieldset{
           background-color: #b8c6db7e;
-          max-width:500px;
+          max-width: 1200px;
           border-radius: 10px;
           box-shadow: 0 0 10px 4.5px rgba(132, 140, 214, 0.753);
-          width: 600px;
+          width: 1200px;
           overflow: hidden;
           margin: 20px auto;
           }
@@ -63,4 +68,49 @@ input {
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #9fb3d1;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #dff;
+  color: black;
+}
+
+.topnav a.split {
+  float: right;
+  background-color: #04AA6D;
+  color: white;
+}
+
+.delete_redact button {
+  float: right;
+  background-color: #dff; /* фон */
+  border: 1px blue; /* граница кнопки */
+  color: black; /* цвет текста внутри */
+  padding: 10px 24px; /* паддинг */
+  cursor: pointer; /* указатель в виде руки */
+  width: 10%; /* установка ширины */
+  display: block; /* чтобы кнопки появились друг под другом */
+}
+
+.btn-group button:not(:last-child) {
+  border-bottom: none; /* избегаем двойных границ */
+}
+
+/* Добавляем цвет фона при наведении курсора мыши */
+.btn-group button:hover {
+  background-color: #3e8e41;
 }
