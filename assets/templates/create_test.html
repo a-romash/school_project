@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница теста</title>
+    <link rel="stylesheet" href="assets\static\css\create_test_style.css">
+  </head>
+  <body>
+
+  <div class="topnav">
+    <a href="create_a_test">Главная страница</a>
+    <a href="#exit" class="split">Выйти</a>
+    <a href="#name_surname" class="split" >Я в шоке</a>
+
+</div>
+
+      <div class="delete">
+        <button>Удалить вопрос</button>
+      </div>
+      <fieldset id="input_question">
+              <div class="flag">
+                  <button>Yes</button>
+                  <button>No</button>
+              </div>
+              <input id="write_inp_question" type="text" placeholder="Введите вопрос">
+              <p></p>
+              <input id="write_inp_question_correct" type="text" placeholder="Введите правильный ответ на вопрос">
+       </fieldset>
+
+     <div class="delete">
+        <button>Удалить вопрос</button>
+      </div>
+      <fieldset id="rb_question">
+              <div class="flag">
+                  <button>Yes</button>
+                  <button>No</button>
+              </div>
+              <input id="write_rb_question" type="text" placeholder="Введите вопрос">
+              <p></p>
+              <div>
+                <input type="radio" id="op_1" name="option_1" value="op_1" checked />
+                <input id="optiom_1_ansv" type="text" placeholder="Введите ответ на вопрос">
+              </div>
+
+              <div>
+                 <button>Добавить ответ</button>
+              </div>
+       </fieldset>
+
+
+  <div class="add_question">
+  <button>Добавить вопрос</button>
+</div>
+    <div id="fs_container">
+      <script src="/static/js/test.js"></script>
+    </div>
+  </body>
+</html>
