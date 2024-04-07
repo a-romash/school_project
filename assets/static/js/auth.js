@@ -18,18 +18,19 @@ function deleteCookie(key) {
 let t = getCookie("t");
 if (t !== "" && t !== null) {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/api/login', true);
+    xhr.open('POST', '/api/v1/login', true);
     xhr.setRequestHeader('t', t);
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                window.location.href = "/";
-            } else {
+            if (xhr.status !== 200) {
                 deleteCookie('t')
+                window.location.href = "/login";
             }
         }
     }
 
     xhr.send();
+} else if (window.location.pathname !== '/login' && window.location.pathname !== '/register') {
+    window.location.href = '/login'
 }

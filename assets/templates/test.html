@@ -4,15 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Страница теста</title>
-    <link rel="stylesheet" href="assets\static\css\testing.css">
+    <link rel="stylesheet" href="static\css\testing.css">
   </head>
   <body>
 
   <fieldset id="test_name">
-      <label>Название теста</label><br>
-      <label>Краткое описание теста</label><br>
-      <label>Автор: Я</label><br>
-      <label>Дата: </label><br>
+          <label id="name"></label><br>
+          <label id="author">Автор: </label><br>
    </fieldset>
 
 
@@ -25,14 +23,14 @@
    <fieldset id="fs_clas">
           <label>Ваш класс</label><br>
 
-          <input id="clas_num" type="text" placeholder="поле для ввода">
+          <input id="clas_num" type="text" placeholder="поле для ввода. Пример: Иван Иванов">
    </fieldset>
 
 
     <fieldset id="fs_question_input" style="display: none;">
               <label id="question">Вопрос</label>
               <p></p>
-              <input id="answer" type="text" placeholder="поле для ввода">
+              <input id="answer" type="text" placeholder="поле для ввода. Пример: 10В">
     </fieldset>
 
 
@@ -42,11 +40,79 @@
               </ul>
     </fieldset>
 
-
-      <button>Завершить тест</button>
-
     <div id="fs_container">
         <script src="/static/js/test.js"></script>
     </div>
+    
+    <button id="end_test">Завершить тест</button>
+    <script>
+      document.querySelector('#end_test').addEventListener('click', function() {
+        const fieldsetContainer = document.getElementById("fs_container");
+
+        var data = {};
+        var err = false
+        var fieldsets = document.querySelectorAll('fieldset');
+        data['author'] = document.getElementById('surname_name').value;
+        data['class'] = document.getElementById('clas_num').value;
+        if (data['author'] === '' || data['class'] === '') {
+          alert("Не все поля заполнены!")
+          err = true
+          return
+        }
+        // Получаем текущий URL страницы
+        var url = window.location.href;
+
+        // Создаем объект URL
+        var urlObj = new URL(url);
+
+        // Получаем параметр "t" из URL
+        var test_id = urlObj.searchParams.get('t');
+        data.test_id = test_id
+        data.answers = []
+        
+        fieldsetContainer.querySelectorAll("fieldset").forEach(fs => {
+          if (fs.querySelector('ul') === null) {
+            let answer = fs.querySelector('input').value
+            if (answer === "") {
+              err = true
+            }
+            data['answers'] = data['answers'].concat(fs.querySelector('input').value)
+          } else {
+            var got_answer = false
+            var idksomeusefulvariable = 0
+            fs.querySelector('ul').querySelectorAll('input').forEach(radio => {
+              if (radio.checked) {
+                data['answers'] = data['answers'].concat(idksomeusefulvariable.toString())
+                got_answer = true
+              }
+              idksomeusefulvariable++
+            })
+            if (!got_answer) {
+              err = true
+            }
+          }
+        })
+        if (err) {alert('Не все поля заполнены!');return;}
+        console.log(data)
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+            // Если требуется, можно также добавить другие заголовки
+          },
+          body: JSON.stringify(data)
+        };
+        fetch('/api/v1/getresult', options).then(function(response) {
+          if (!response.ok) {
+            throw new Error('Произошла ошибка при запросе: ' + response.status);
+          }
+          return response.json();
+        }).then(function(fieldsetData) {
+          console.log(fieldsetData)
+        }).catch(function(error) {
+          console.error('Сетевая ошибка: ', error);
+        });
+        });
+    </script>
   </body>
 </html>

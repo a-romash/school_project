@@ -52,7 +52,7 @@ function submitForm() {
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/api/register', true);
+    xhr.open('POST', '/api/v1/register', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(data));
 

@@ -22,7 +22,8 @@ type Database interface {
 	DeleteTokensByLogin(login string) error
 
 	CreateNewTest(*model.Test) error
-	GetSolutionsForTest(id int) (*model.Solution, error)
+	GetSolutionsForTest(id int) ([]*model.Solution, error)
+	GetSolution(id int) (*model.Solution, error)
 	GetTest(id string) (*model.Test, error)
 	PutSolutionToTest(*model.Test) error
 	UpdateTest(*model.Test) error

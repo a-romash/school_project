@@ -112,9 +112,10 @@ func Init(p *pgxpool.Pool) (err error) {
 
 	CREATE TABLE IF NOT EXISTS tests (
 		id UUID PRIMARY KEY,
+		title VARCHAR(255) NOT NULL,
 		author VARCHAR(255) NOT NULL,
 		author_id INT REFERENCES users(id),
-		solutions_id INT[],
+		max_score INT NOT NULL,
 		questions JSONB[] NOT NULL,
 		answers VARCHAR(255)[] NOT NULL,
 		created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 

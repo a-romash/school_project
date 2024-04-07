@@ -32,7 +32,7 @@ function submitForm() {
     };
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/api/login', true);
+    xhr.open('POST', '/api/v1/login', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(data));
 

@@ -24,15 +24,92 @@ func (db *Postgresql) GetTest(id string) (test *model.Test, err error) {
 	return test, nil
 }
 
-func (db *Postgresql) CreateNewTest(test *model.Test) (err error) {
+func (db *Postgresql) GetIdTests(userId int) (id []string, err error) {
 	const sql = `
-	INSERT INTO tests (id, author, author_id, questions, answers)
-  	VALUES ($1, $2, $3, $4, $5);
+	SELECT id
+	FROM tests
+	WHERE author_id = $1;
 	`
 
-	_, err = db.pool.Exec(context.Background(), sql, test.Id, test.Author, test.AuthorId, test.Questions, test.Answers)
+	rows, _ := db.pool.Query(context.Background(), sql, userId)
+	if err != nil {
+		return []string{}, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var uuid string
+		err := rows.Scan(&uuid)
+		if err != nil {
+			return []string{}, err
+		}
+		id = append(id, uuid)
+	}
+
+	return id, nil
+}
+
+func (db *Postgresql) DeleteTest(test_id string) (err error) {
+	const sql_one = `
+	DELETE FROM solutions
+	WHERE test_id = $1;
+	`
+
+	const sql_two = `
+	DELETE FROM tests
+	WHERE id = $1;
+	`
+
+	_, err = db.pool.Exec(context.Background(), sql_one, test_id)
+	if err != nil {
+		return err
+	}
+
+	_, err = db.pool.Exec(context.Background(), sql_two, test_id)
 	if err != nil {
 		return err
 	}
 	return nil
+}
+
+func (db *Postgresql) CreateNewTest(test *model.Test) (err error) {
+	const sql = `
+	INSERT INTO tests (id, title, author, author_id, max_score, questions, answers)
+  	VALUES ($1, $2, $3, $4, $5, $6, $7);
+	`
+
+	_, err = db.pool.Exec(context.Background(), sql, test.Id, test.Title, test.Author, test.AuthorId, test.Max_score, test.Questions, test.Answers)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (db *Postgresql) CreateNewSolution(solution *model.Solution) (err error) {
+	const sql = `
+	INSERT INTO solutions (author, class, answers, result, test_id)
+  	VALUES ($1, $2, $3, $4, $5);
+	`
+
+	_, err = db.pool.Exec(context.Background(), sql, solution.Author, solution.Class, solution.Answers, solution.Result, solution.TestId)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (db *Postgresql) GetSolutionsForTest(test_id string) (solutions []model.Solution, err error) {
+	const sql = `
+	SELECT * FROM solutions
+	WHERE test_id=$1
+	`
+
+	rows, _ := db.pool.Query(context.Background(), sql, test_id)
+	solutions, err = pgx.CollectRows(rows, pgx.RowToStructByName[model.Solution])
+	if err != nil {
+		return nil, err
+	}
+	if len(solutions) == 0 {
+		return nil, pgx.ErrNoRows
+	}
+	return solutions, nil
 }

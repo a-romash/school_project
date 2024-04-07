@@ -8,13 +8,20 @@ var urlObj = new URL(url);
 // Получаем параметр "t" из URL
 var parameterT = urlObj.searchParams.get('t');
 
-fetch('/api/gettest?t='+parameterT).then(function(response) {
+fetch('/api/v1/gettest?t='+parameterT).then(function(response) {
     if (!response.ok) {
       throw new Error('Произошла ошибка при запросе: ' + response.status);
     }
     return response.json();
   }).then(function(fieldsetData) {
+    const labelAuthor = document.getElementById('author')
+    labelAuthor.append(fieldsetData.author)
+
+    const labelTitle = document.getElementById('name')
+    labelTitle.append(fieldsetData.title)
+
     console.log(fieldsetData)
+
     const fieldsetContainer = document.getElementById("fs_container");
     const templateInputFieldset = document.getElementById("fs_question_input");
     const templateRBFieldset = document.getElementById("fs_question_rb");
