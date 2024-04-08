@@ -1,12 +1,15 @@
 /* Поле с вопросами */
 fieldset{
-          background-color: #b8c6db7e;
-          max-width:500px;
-          border-radius: 10px;
-          box-shadow: 0 0 10px 4.5px rgba(132, 140, 214, 0.753);
-          width: 600px;
+          background-color: rgba(184, 198, 219, 0.494);
+          max-width:700px;
+          border-radius: 7px;
+          box-shadow: 0 0 10px 2.5px rgba(132, 140, 214, 0.753);
+          width: 700px;
           overflow: hidden;
           margin: 20px auto;
+          position: relative;
+          padding-right: 0;
+          padding-bottom: 0;
           }
 
 /* Заголовок в первых двух вопросах */
@@ -58,6 +61,7 @@ input {
   padding: 1px 0px;
   border-image: initial;
   border-radius: 7px;
+  margin-bottom: 5px;
 }
 
 body {
@@ -91,26 +95,34 @@ body {
 }
 
 .flag button {
-  float: right;
+  float: right; /* смещение вправо */
+  border-radius: 10px; /* закругления */
   background-color: #dff; /* фон */
   border: 1px blue; /* граница кнопки */
   color: black; /* цвет текста внутри */
-  padding: 10px 24px; /* паддинг */
+  padding: 10px 10px; /* паддинг */
+  width: 10%; /* ширина */
   cursor: pointer; /* указатель в виде руки */
-  width: 10%; /* установка ширины */
+  margin-right: 5px; /* отступ справа */
+  margin-left: 0.5px;
   display: block; /* чтобы кнопки появились друг под другом */
+  border: 1px solid black;
 }
 
 .delete button {
-  float: right;
-  background-color: #dff; /* фон */
-  border: 1px blue; /* граница кнопки */
+  position: absolute; /* позиция справа снизу*/
+  bottom: 0;
+  right: 0;
+  border: 1px solid black; /* обводка кнопки */
+  margin: 5px; /* отступы */
+  border-radius: 10px; /* закругления */
+  background-color: #ddffff; /* фон */
   color: black; /* цвет текста внутри */
-  padding: 10px 24px; /* паддинг */
+  padding: 10px 10px; /* паддинг */
   cursor: pointer; /* указатель в виде руки */
-  width: 10%; /* установка ширины */
+  width: 20%; /* установка ширины */
   display: block; /* чтобы кнопки появились друг под другом */
-}
+} 
 
 .btn-group button:not(:last-child) {
   border-bottom: none; /* избегаем двойных границ */
@@ -119,4 +131,20 @@ body {
 /* Добавляем цвет фона при наведении курсора мыши */
 .btn-group button:hover {
   background-color: #3e8e41;
+}
+
+.add_question button{
+  padding: 10px 10px;
+  width: 15%;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.add_answer button{
+  margin-top: 10px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: #ddffff;
+  padding: 10px 10px;
 }
