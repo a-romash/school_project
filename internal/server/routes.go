@@ -18,6 +18,7 @@ func (s *Server) SetRoutes(serveMux *mux.Router) {
 	serveMux.HandleFunc("/api/v1/deletetoken", s.HandleApiDeleteToken).Methods("POST")
 	serveMux.HandleFunc("/api/v1/deletetest", s.HandleApiDeleteTest).Methods("POST")
 
+	serveMux.HandleFunc("/edit_test", s.HandleEditTest)
 	serveMux.HandleFunc("/register", s.HandleRegister)
 	serveMux.HandleFunc("/login", s.HandleLogin)
 	serveMux.HandleFunc("/test", s.HandleGetTest)

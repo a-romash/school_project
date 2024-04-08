@@ -4,59 +4,55 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Страница теста</title>
-    <link rel="stylesheet" href="static\css\create_test_style.css">
+    <link rel="stylesheet" href="/static/css/create_test_style.css">
+    <script src="/static/js/auth.js"></script>
   </head>
   <body>
+    <div class="topnav">
+      <a href="/edit_test?mode=create">Создать тест</a>
+      <a class="split" id="exit">Выйти</a>
+      <a href="/" class="split" id="name"></a>
+      <script src="/static/js/exit.js"></script>
+  </div>
 
-  <div class="topnav">
-    <a href="create_a_test">Главная страница</a>
-    <a href="#exit" class="split">Выйти</a>
-    <a href="#name_surname" class="split" >Я в шоке</a>
+  <fieldset id="test_name">
+    <input id="write_title" type="text" placeholder="Введите название теста"><br/>
+    <label class="descr" id="description">Все ответы должны быть в именительном падеже и начинаться со строчной буквы. В вопросах, где несколько вариантов ответа - вы должны выбрать ответ, который будет правильным.<bt/><br/>При любом измении теста - все ответы удаляются, будьте осторожны!!</label><br>
+  </fieldset> 
 
-</div>
-
-      <fieldset id="input_question">
-              <div class="flag">
-                  <button>Да</button>
-                  <button>Нет</button>
-              </div>
-              <div class="delete">
-                <button>Удалить вопрос</button>
-              </div>
-              <input id="write_inp_question" type="text" placeholder="Введите вопрос">
-              <p></p>
-              <input id="write_inp_question_correct" type="text" placeholder="Введите правильный ответ на вопрос">
-              <div class="save_answer">
-                <button>Сохранить тест</button>
-              </div>
-       </fieldset>
-      <fieldset id="rb_question">
-              <div class="flag">
-                  <button>Да</button>
-                  <button>Нет</button>
-              </div>
-              <div class="delete">
-                <button>Удалить вопрос</button>
-              </div>
-              <input id="write_rb_question" type="text" placeholder="Введите вопрос">
-              <p></p>
-              <div>
-                <input type="radio" id="op_1" name="option_1" value="op_1" checked />
-                <input id="optiom_1_ansv" type="text" placeholder="Введите ответ на вопрос">
-              </div>
-              <div class="add_answer">
-                 <button>Добавить ответ</button>
-              </div>
-              <div class="save_answer">
-                <button>Сохранить тест</button>
-              </div>
-       </fieldset>
-
-  <div class="add_question">
-  <button>Добавить вопрос</button>
-</div>
     <div id="fs_container">
-      <script src="/static/js/test.js"></script>
-    </div>
+      <div class="fs_questions" style="display: none;">
+        <div class="delete" id="delete_btn">
+          <button>Удалить вопрос</button>
+        </div>
+        <fieldset id="fs_template">
+                <div class="flag">
+                  <button id="type_btn">Несколько<br/>ответов</button>
+                </div>
+                <input id="question" type="text" placeholder="Введите вопрос">
+                <p></p>
+
+                <div id="type_answer_one_input">
+                  <input id="answer" type="text" placeholder="Введите правильный ответ на вопрос">
+                </div>
+
+                <div id="type_answer_mult_inputs" style="display: none;">
+                  <ul id="answ_opts">
+                  </ul>
+  
+                  <button id="add_answ">Добавить вариант ответа</button>
+                </div>
+         </fieldset>
+      </div>
+  </div>
+  <div class="add_question">
+    <button id="add_questions">Добавить вопрос</button>
+    <script src="/static/js/add_button.js"></script>
+  </div>
+
+  <div class="save_button">
+    <button>Сохранить тест</button>
+    <script src="/static/js/save_test.js"></script>
+  </div>
   </body>
 </html>

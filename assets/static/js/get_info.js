@@ -49,6 +49,11 @@ fetch('/api/v1/getinfo', options).then(function(response) {
         test_name.textContent = fieldsetData.tests[testId].test_name + " (id=" + testId + ")";
 
         const sols_list = clonedFieldset.querySelector("#sols_list")
+
+        if (fieldsetData.tests[testId].solutions.length === 0) {
+          sols_list.append('Решений нет.')
+        }
+
         fieldsetData.tests[testId].solutions.forEach(solution => {
         const solDecodedString = decodeURIComponent(escape(atob(solution)));
         const solDecoded = JSON.parse(solDecodedString);

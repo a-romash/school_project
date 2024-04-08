@@ -52,6 +52,12 @@ func (s *Server) HandleMain(w http.ResponseWriter, r *http.Request) {
 	slog.Info("handled /")
 }
 
+func (s *Server) HandleEditTest(w http.ResponseWriter, r *http.Request) {
+	tmpl, _ := template.ParseFiles("assets/templates/create_test.html")
+	tmpl.Execute(w, nil)
+	slog.Info("handled /edittest")
+}
+
 type ErrTokenUndefined error
 
 func (s *Server) ParseToken(string_token string) (token uuid.UUID, err error) {
