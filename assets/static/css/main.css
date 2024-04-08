@@ -85,13 +85,13 @@ body {
 }
 
 .topnav a:hover {
-  background-color: #dff;
+  background-color: #a5aae0;
   color: black;
 }
 
 .topnav a.split {
   float: right;
-  background-color: #04AA6D;
+  background-color: #9fb3d1;
   color: white;
 }
 

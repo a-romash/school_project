@@ -65,3 +65,29 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+button  {
+  background-color: #424874;
+  color: #f7f7f7;
+  padding: 16px 20px;
+  margin: 5px 0;
+  border-radius: 50px;
+  cursor: pointer;
+  opacity: 0.9;
+  font-family: inherit;
+  position: absolute;
+  align-items: center;
+  margin: auto 32%;
+  width: 36%;
+}
+
+h1{
+  text-align: center;
+}
+
+input#surname_name {
+  width: 100%;
+}
+
+input#clas_num {
+  width: 100%;
+}

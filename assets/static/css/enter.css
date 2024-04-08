@@ -76,9 +76,14 @@ c {
 /* Set a grey background color and center the text of the "sign in" section */
 .signin {
   background-color: #a5aae0;    /* Цвет фона самого нижнего элемента */
-  text-align: center;
+  text-align:center;
   font: 1.5em;
-  border-radius: 20px 20px 20px 20px ;;
+  padding-top: 3px;
+  padding-bottom: 0.013px;
+  border-radius: 50px;
+  width: 95%;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 
 .error {

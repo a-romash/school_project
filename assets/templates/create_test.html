@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Страница теста</title>
-    <link rel="stylesheet" href="..\static\css\create_test_style.css">
+    <link rel="stylesheet" href="static\css\create_test_style.css">
   </head>
   <body>
 
@@ -26,8 +26,10 @@
               <input id="write_inp_question" type="text" placeholder="Введите вопрос">
               <p></p>
               <input id="write_inp_question_correct" type="text" placeholder="Введите правильный ответ на вопрос">
+              <div class="save_answer">
+                <button>Сохранить тест</button>
+              </div>
        </fieldset>
-       <button>Слхранить тест</button>
       <fieldset id="rb_question">
               <div class="flag">
                   <button>Да</button>
@@ -42,12 +44,13 @@
                 <input type="radio" id="op_1" name="option_1" value="op_1" checked />
                 <input id="optiom_1_ansv" type="text" placeholder="Введите ответ на вопрос">
               </div>
-
               <div class="add_answer">
                  <button>Добавить ответ</button>
               </div>
+              <div class="save_answer">
+                <button>Сохранить тест</button>
+              </div>
        </fieldset>
-       <button>Слхранить тест</button>
 
   <div class="add_question">
   <button>Добавить вопрос</button>
