@@ -11,6 +11,7 @@ fieldset{
   position: relative;
   padding-right: 0;
   padding-bottom: 0;
+  z-index:1;
   }
 
 /* Заголовок в первых двух вопросах */
@@ -113,9 +114,6 @@ font-family: Arial, Helvetica, sans-serif;
 }
 
 .delete button {
-  position: absolute;
-  bottom: 0;
-  right: 0;
   border: 1px solid black;
   margin: 5px;
   border-radius: 10px;
@@ -125,6 +123,7 @@ font-family: Arial, Helvetica, sans-serif;
   cursor: pointer;
   width: 20%;
   display: block;
+  z-index:2;
 }
 
 .btn-group button:not(:last-child) {
@@ -201,3 +200,70 @@ input#optiom_1_ansv {
     font-size: 15px;
 }
 
+input#question {
+  width: 80%;
+}
+
+input#answer {
+  width: 80%;
+}
+
+button#add_answ {
+  background-color: #9fb3d1;
+  display: block;
+  border: 1px solid black;
+  border: 1px blue;
+  color: black;
+  padding: 10px 24px;
+  cursor: pointer;
+  display: block;
+  border-radius: 10px;
+  text-align: center;
+  margin: 0px 0px 10px 0px;
+}
+
+input.inp_answ {
+  width: 77.4%;
+}
+
+.save_button button {
+  background-color: #424874;
+  color: #f7f7f7;
+  padding: 16px 20px;
+  margin: 5px 0;
+  border-radius: 50px;
+  cursor: pointer;
+  opacity: 0.9;
+  font-family: inherit;
+  position: absolute;
+  align-items: center;
+  margin: auto 26%;
+  width: 20%;
+}
+
+.add_question button {
+  background-color: #424874;
+  color: #f7f7f7;
+  padding: 16px 20px;
+  margin: 5px 0;
+  border-radius: 50px;
+  cursor: pointer;
+  opacity: 0.9;
+  font-family: inherit;
+  position: absolute;
+  align-items: center;
+  margin: auto 0 auto 54%;
+  width: 20%;
+  /* float: right; */
+}
+
+#fs_container {
+  width: 700px;
+  margin: auto;
+  position: relative;
+
+}
+
+.fs_questions {
+  margin: 0 -20px;
+}
