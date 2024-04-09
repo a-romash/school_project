@@ -26,11 +26,18 @@ if (t !== "" && t !== null) {
             if (xhr.status !== 200) {
                 deleteCookie('t')
                 window.location.href = "/login";
+                console.log(1)
             }
+            if (xhr.status === 200 && (window.location.pathname === '/login' || window.location.pathname === '/register')) {
+                window.location.href = "/";
+                console.log(2)
+            }
+
         }
     }
 
     xhr.send();
 } else if (window.location.pathname !== '/login' && window.location.pathname !== '/register') {
     window.location.href = '/login'
+    console.log(3)
 }
