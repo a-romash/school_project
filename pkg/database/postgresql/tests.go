@@ -24,6 +24,35 @@ func (db *Postgresql) GetTest(id string) (test *model.Test, err error) {
 	return test, nil
 }
 
+func (db *Postgresql) UpdateTest(data map[string]interface{}) (err error) {
+	const sql_one = `
+	DELETE FROM solutions
+	WHERE test_id = $1;
+	`
+
+	const sql_two = `
+	UPDATE tests
+	SET title=$1,
+		max_score=$2,
+		questions=$3,
+		answers=$4,
+		updated=CURRENT_TIMESTAMP
+	WHERE id=$5;
+	`
+
+	_, err = db.pool.Exec(context.Background(), sql_one, data["test_id"].(string))
+	if err != nil {
+		return err
+	}
+
+	_, err = db.pool.Exec(context.Background(), sql_two, data["title"], len(data["answers"].([]interface{})), data["questions"], data["answers"], data["test_id"])
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (db *Postgresql) GetIdTests(userId int) (id []string, err error) {
 	const sql = `
 	SELECT id

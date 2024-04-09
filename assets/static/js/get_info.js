@@ -28,7 +28,6 @@ fetch('/api/v1/getinfo', options).then(function(response) {
     }
     return response.json();
   }).then(function(fieldsetData) {
-    console.log(fieldsetData)
     const labelAuthor = document.getElementById('name')
     labelAuthor.append(fieldsetData.name)
 
@@ -37,10 +36,6 @@ fetch('/api/v1/getinfo', options).then(function(response) {
 
     for (const testId in fieldsetData.tests) {
       if (fieldsetData.tests.hasOwnProperty(testId)) {
-        console.log(testId)
-
-
-
         const clonedFieldset = templateTestTemplate.cloneNode(true);
         clonedFieldset.id = testId
         clonedFieldset.style.display = "block";
@@ -66,13 +61,14 @@ fetch('/api/v1/getinfo', options).then(function(response) {
 
         const lbl_stat = clonedFieldset.querySelector("#lbl_stat");
         lbl_stat.append(fieldsetData.tests[testId].amount + " чел.")
-        var btn = clonedFieldset.querySelector('#delete_btn')
-        btn.addEventListener('click', function() {
+
+
+        var del_btn = clonedFieldset.querySelector('#delete_btn')
+        del_btn.addEventListener('click', function() {
           var xhr = new XMLHttpRequest();
           xhr.open('POST', '/api/v1/deletetest', true)
           xhr.setRequestHeader('Content-Type', 'application/json');
-          const id = btn.parentNode.parentNode.id
-          console.log(id)
+          const id = del_btn.parentNode.parentNode.id
           xhr.onreadystatechange = function() {
               if (xhr.readyState === XMLHttpRequest.DONE) {
                   if (xhr.status !== 200) {
@@ -88,12 +84,16 @@ fetch('/api/v1/getinfo', options).then(function(response) {
                   }
               }
           };
+
           const data = {token: getCookie("t"), test_id: id}
           xhr.send(JSON.stringify(data));
       
-          console.log('data sent')
-      
       });
+
+      var edit_btn = clonedFieldset.querySelector('#edit_btn')
+      edit_btn.addEventListener('click', function() {
+        window.location.href = '/edit_test?mode=edit&test_id=' + testId
+      })
         
         fieldsetContainer.appendChild(clonedFieldset);
       }

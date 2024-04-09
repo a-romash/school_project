@@ -45,7 +45,6 @@ document.querySelector('#end_test').addEventListener('click', function() {
       }
     })
     if (err) {alert('Не все поля заполнены!');return;}
-    console.log(data)
     const options = {
       method: 'POST',
       headers: {
@@ -59,8 +58,9 @@ document.querySelector('#end_test').addEventListener('click', function() {
         throw new Error('Произошла ошибка при запросе: ' + response.status);
       }
       return response.json();
-    }).then(function(fieldsetData) {
-      console.log(fieldsetData)
+    }).then(function(response) {
+      localStorage.setItem('solution_results', JSON.stringify(response))
+      window.location.href = "/result";
     }).catch(function(error) {
       console.error('Сетевая ошибка: ', error);
     });

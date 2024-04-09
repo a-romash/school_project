@@ -5,7 +5,7 @@ document.querySelector('.save_button').addEventListener('click', function() {
     var urlObj = new URL(url);
 
     // Получаем параметр "t" из URL
-    var parameterT = urlObj.searchParams.get('t');
+    var parameterT = urlObj.searchParams.get('test_id');
 
     function getCookie(name) {
         let cookieArr = document.cookie.split(";");
@@ -29,15 +29,13 @@ document.querySelector('.save_button').addEventListener('click', function() {
             questions: [],
             answers: []
         }
-        
+
         var err = false
-        
-        if (parameterT === '' || parameterT === null) {
             document.querySelectorAll('.fs_questions').forEach(fs_quest => {
                 if (err) {
                     return
                 }
-        
+
                 if (fs_quest.style.display !== "none") {
                     var title = fs_quest.querySelector("#question")
                     if (title.value === '') {
@@ -67,7 +65,7 @@ document.querySelector('.save_button').addEventListener('click', function() {
                                 err = true
                                 return
                             }
-        
+
                             answers.push(answer_input.value)
                             if (answer.querySelector('.rb_ans').checked) {
                                 ans = k
@@ -84,30 +82,48 @@ document.querySelector('.save_button').addEventListener('click', function() {
                                 "answ_opt": answers
                             }
                         )
-        
+
                         data.answers.push(ans.toString())
                     }
                 }
             })
-        }
+
 
         if (err) {
             alert("Не все поля заполнены/выбраны!")
         } else {
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/api/v1/createtest');
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        window.location.href = "/";
-                    } else {
-                        console.log('Got error');
-                        alert("Got error (Status code: " + xhr.status + ")")
+            if (parameterT === '' || parameterT === null) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/api/v1/createtest');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            window.location.href = "/";
+                        } else {
+                            console.log('Got error');
+                            alert("Got error (Status code: " + xhr.status + ")")
+                        }
                     }
                 }
+                xhr.send(JSON.stringify(data));
+            } else {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/api/v1/updatetest');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            window.location.href = "/";
+                        } else {
+                            console.log('Got error');
+                            alert("Got error (Status code: " + xhr.status + ")")
+                        }
+                    }
+                }
+                data.test_id = parameterT
+                xhr.send(JSON.stringify(data));
             }
-            xhr.send(JSON.stringify(data));
         }
     }
 });

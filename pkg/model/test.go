@@ -13,7 +13,7 @@ type Test struct {
 	Title     string        `db:"title" json:"title"`
 	Questions []interface{} `db:"questions" json:"questions"`
 	Id        uuid.UUID     `db:"id" json:"id"`
-	Answers   []interface{} `db:"answers" json:"-"`
+	Answers   []interface{} `db:"answers" json:"answers"`
 	Max_score int           `db:"max_score" json:"max_score"`
 	Created   time.Time     `db:"created" json:"created"`
 	Updated   time.Time     `db:"updated" json:"updated"`

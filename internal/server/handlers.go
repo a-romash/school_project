@@ -58,6 +58,12 @@ func (s *Server) HandleEditTest(w http.ResponseWriter, r *http.Request) {
 	slog.Info("handled /edittest")
 }
 
+func (s *Server) HandleResult(w http.ResponseWriter, r *http.Request) {
+	tmpl, _ := template.ParseFiles("assets/templates/test_result.html")
+	tmpl.Execute(w, nil)
+	slog.Info("handled /result")
+}
+
 type ErrTokenUndefined error
 
 func (s *Server) ParseToken(string_token string) (token uuid.UUID, err error) {
@@ -455,4 +461,26 @@ func (s *Server) HandleApiDeleteTest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.Error(w, "no token", http.StatusUnauthorized)
+}
+
+func (s *Server) HandleApiUpdateTest(w http.ResponseWriter, r *http.Request) {
+	var data map[string]interface{}
+
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		slog.Error(err.Error())
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	if _, ok_t := data["test_id"]; ok_t {
+		err = s.db.UpdateTest(data)
+		if err != nil {
+			slog.Error(err.Error())
+			http.Error(w, "internal error", http.StatusInternalServerError)
+			return
+		}
+		w.WriteHeader(http.StatusOK)
+	}
+	http.Error(w, "no test_id", http.StatusUnauthorized)
 }

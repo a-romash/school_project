@@ -20,7 +20,18 @@ fetch('/api/v1/gettest?t='+parameterT).then(function(response) {
     const labelTitle = document.getElementById('name')
     labelTitle.append(fieldsetData.title)
 
-    console.log(fieldsetData)
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'UTC' };
+    var date = new Date(fieldsetData.created);
+    var formattedDate = date.toLocaleString('ru-RU', options);
+
+    const labelCreated = document.getElementById('created')
+    labelCreated.append(formattedDate)
+
+    date = new Date(fieldsetData.updated);
+    formattedDate = date.toLocaleString('ru-RU', options);
+
+    const labelUpdated = document.getElementById('updated')
+    labelUpdated.append(formattedDate)
 
     const fieldsetContainer = document.getElementById("fs_container");
     const templateInputFieldset = document.getElementById("fs_question_input");
@@ -54,7 +65,7 @@ fetch('/api/v1/gettest?t='+parameterT).then(function(response) {
 
                 const radioButton = document.createElement("input");
                 radioButton.type = "radio";
-                radioButton.name = "options";
+                radioButton.name = "options" + document.querySelectorAll('#answ_opts').length.toString();
 
                 const div = document.createElement("li");
                 label.appendChild(radioButton);

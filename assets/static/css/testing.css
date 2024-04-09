@@ -91,3 +91,7 @@ input#surname_name {
 input#clas_num {
   width: 100%;
 }
+
+.description {
+  font-size: 16px;
+}
