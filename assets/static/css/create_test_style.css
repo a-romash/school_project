@@ -97,25 +97,19 @@ font-family: Arial, Helvetica, sans-serif;
 
 .flag button {
   float: right;
-  border-radius: 10px;
   background-color: #9fb3d1;
-  border: 1px blue;
-  color: black;
-  padding: 10px 10px;
-  width: 10%;
-  cursor: pointer;
   margin-right: 5px;
   margin-left: 0.5px;
   display: block;
   border: 1px solid black;
-  background-color: #dff; /* фон */
-  border: 1px blue; /* граница кнопки */
-  color: black; /* цвет текста внутри */
-  padding: 10px 24px; /* паддинг */
-  cursor: pointer; /* указатель в виде руки */
-  display: block; /* чтобы кнопки появились друг под другом */
-  margin: 0px 3px 0px 3px;
+  border: 1px blue;
+  color: black;
+  padding: 10px 24px;
+  cursor: pointer;
+  display: block;
+  margin: 10px 10px 0px 3px;
   border-radius: 10px;
+  text-align: center;
 }
 
 .delete button {
@@ -201,9 +195,9 @@ input#optiom_1_ansv {
 }
 
 .descr {
-  font-size: small;
+    padding: 5px;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 15px;
 }
 
-.descr {
-  font-size: small;
-}
