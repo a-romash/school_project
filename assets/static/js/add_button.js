@@ -42,10 +42,11 @@ document.querySelector('#add_questions').addEventListener('click', function() {
       </li>
       `;
 
-      btn_add.parentNode.querySelector('#answ_opts').innerHTML = templ
+      btn_add.parentNode.querySelector('#answ_opts').innerHTML = btn_add.parentNode.querySelector('#answ_opts').innerHTML + templ
+
     })
     fieldsetContainer.appendChild(clonedFieldset);
-
+            
     btn_add.click()
   });
 
