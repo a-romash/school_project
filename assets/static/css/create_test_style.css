@@ -209,16 +209,17 @@ input#answer {
 
 button#add_answ {
   background-color: #9fb3d1;
-  display: block;
+  display: inline;
   border: 1px solid black;
   border: 1px blue;
   color: black;
   padding: 10px 24px;
   cursor: pointer;
-  display: block;
+  /* display: block; */
   border-radius: 10px;
   text-align: center;
   margin: 0px 0px 10px 0px;
+  float: left;
 }
 
 input.inp_answ {
@@ -265,4 +266,19 @@ input.inp_answ {
 
 .fs_questions {
   margin: 0 -20px;
+}
+
+button#delete_answ {
+  background-color: #9fb3d1;
+  display: inline;
+  border: 1px solid black;
+  border: 1px blue;
+  color: black;
+  padding: 10px 24px;
+  cursor: pointer;
+  /* display: block; */
+  border-radius: 10px;
+  text-align: center;
+  margin: 0px 10px 0px 0px;
+  float: right;
 }
