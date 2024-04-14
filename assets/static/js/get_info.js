@@ -42,6 +42,9 @@ fetch('/api/v1/getinfo', options).then(function(response) {
         
         const test_name = clonedFieldset.querySelector("#test_name");
         test_name.textContent = fieldsetData.tests[testId].test_name + " (id=" + testId + ")";
+        test_name.addEventListener('click', function() {
+        window.location.href = '/test?t=' + testId
+      })
 
         const sols_list = clonedFieldset.querySelector("#sols_list")
 
