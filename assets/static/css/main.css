@@ -166,3 +166,7 @@ table#table_result td {
 	border: 1px solid #dddddd;
 	padding: 5px;
 }
+
+details {
+  width: 750px;
+}
