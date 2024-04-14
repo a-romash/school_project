@@ -58,6 +58,10 @@ a {
 	cursor: pointer;
 }
 
+label {
+  font-size: large;
+}
+
 /* Список вопросов */
 ul{
   list-style-type: none;

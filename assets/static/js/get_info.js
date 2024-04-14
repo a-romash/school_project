@@ -41,9 +41,13 @@ fetch('/api/v1/getinfo', options).then(function(response) {
         clonedFieldset.style.display = "block";
         
         const test_name = clonedFieldset.querySelector("#test_name");
-        test_name.textContent = fieldsetData.tests[testId].test_name + " (id=" + testId + ")";
-        test_name.addEventListener('click', function() {
-        window.location.href = '/test?t=' + testId
+        test_name.textContent = fieldsetData.tests[testId].test_name;
+
+        const test_id = clonedFieldset.querySelector("#lbl_id");
+        test_id.textContent = 'id='+testId;
+        test_id.addEventListener('click', function() {
+          navigator.clipboard.writeText(location.host + '/test?t=' + testId)
+          alert("Ссылка на тест скопирована в буфер обмена")
       })
 
         const sols_list = clonedFieldset.querySelector("#sols_list")
