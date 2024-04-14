@@ -95,3 +95,21 @@ input#clas_num {
 .description {
   font-size: 16px;
 }
+
+input#answer {
+  text-rendering: auto;
+  color: rgb(0, 0, 0);
+  border-color: #a8b3df;
+  border-radius: 0.25rem;
+  text-indent: 5px;
+  width: 100%;
+  display: inline-block;
+  text-align: start;
+  line-height: 1.8;
+  background-color: rgba(238, 240, 244, 0.589);
+  cursor: text;
+  margin: 0em;
+  padding: 1px 0px;
+  border-image: initial;
+  border-radius: 7px;
+}
