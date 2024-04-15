@@ -50,19 +50,48 @@ fetch('/api/v1/getinfo', options).then(function(response) {
           alert("Ссылка на тест скопирована в буфер обмена")
       })
 
-        const sols_list = clonedFieldset.querySelector("#sols_list")
+        const table_result = clonedFieldset.querySelector("#table_result")
 
         if (fieldsetData.tests[testId].solutions.length === 0) {
-          sols_list.append('Решений нет.')
+          table_result.append('Решений нет.')
         }
 
         fieldsetData.tests[testId].solutions.forEach(solution => {
         const solDecodedString = decodeURIComponent(escape(atob(solution)));
         const solDecoded = JSON.parse(solDecodedString);
         
-        let li = document.createElement("li");
-        li.textContent = solDecoded.author + ' ' + solDecoded.class + '.'.repeat(205-2-solDecoded.author.length-solDecoded.class.length-solDecoded.result.toString().length-fieldsetData.tests[testId].max_score.toString().length) + solDecoded.result + '/' + fieldsetData.tests[testId].max_score;
-        sols_list.appendChild(li);
+        let tr = document.createElement("tr");
+
+// Создание и заполнение первой ячейки <td>
+let td = document.createElement("td");
+td.textContent = solDecoded.author;
+tr.appendChild(td);
+
+// Создание и заполнение второй ячейки <td>
+let td1 = document.createElement("td");
+td1.textContent = solDecoded.class;
+tr.appendChild(td1);
+
+// Создание и заполнение третьей ячейки <td>
+let td2 = document.createElement("td");
+td2.textContent = solDecoded.result + '/' + fieldsetData.tests[testId].max_score;
+tr.appendChild(td2);
+
+// Создание и заполнение четвертой ячейки <td> с текстовым значением solDecoded.grade
+let td3 = document.createElement("td");
+td3.textContent = fieldsetData.tests[testId].grade;
+console.log(solDecoded.grade)
+if (td3.textContent == ""){
+  tr.append("undefiend");
+} else {
+  tr.appendChild(td3);
+}
+
+// Добавление строки <tr> к таблице
+table_result.appendChild(tr);
+
+
+
         })
 
 
