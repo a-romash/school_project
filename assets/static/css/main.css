@@ -174,3 +174,9 @@ table#table_result td {
 details {
   width: 750px;
 }
+
+label#lbl_id {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
