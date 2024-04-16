@@ -17,7 +17,7 @@
 
   <fieldset id="test_name">
     <input id="write_title" type="text" placeholder="Введите название теста"><br/>
-    <label class="descr" id="description">Все ответы должны быть в именительном падеже и начинаться со строчной буквы. В вопросах, где несколько вариантов ответа - вы должны выбрать ответ, который будет правильным.<bt/><br/>При любом измении теста - все ответы удаляются, будьте осторожны!!</label><br>
+    <label class="descr" id="description">Все ответы должны быть в именительном падеже и начинаться со строчной буквы. В вопросах, где несколько вариантов ответа - вы должны выбрать ответ, который будет правильным. За каждый вопрос дается 1 балл.<bt/><br/>При любом измении теста - все ответы удаляются, будьте осторожны!!</label><br>
   </fieldset> 
 
     <div id="fs_container">
@@ -47,6 +47,19 @@
          </fieldset>
       </div>
   </div>
+
+    <fieldset id="test_grade">
+      <label class="descr" id="description_to_grades">Количество баллов для оценок:</label><br/>
+      <label class="descr" id="grade_5">"5" от </label>
+      <input id="mark_5" type="number" max="50" min="0"><br/>
+      <label class="descr" id="grade_4">"4" от </label>
+      <input id="mark_4" type="number" max="50" min="0"><br/>
+      <label class="descr" id="grade_3">"3" от </label>
+      <input id="mark_3" type="number" max="50" min="0"><br/>
+      <label class="descr" id="grade_2">"2" от </label>
+      <input id="mark_2" type="number" max="50" min="0"><br/>
+    </fieldset>
+
   <div class="add_question">
     <button id="add_questions">Добавить вопрос</button>
     <script src="/static/js/add_button.js"></script>
