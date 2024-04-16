@@ -97,14 +97,14 @@ table_result.appendChild(tr);
 
         const lbl_stat = clonedFieldset.querySelector("#lbl_stat");
         lbl_stat.append(fieldsetData.tests[testId].amount + " чел.")
-
+        
 
         var del_btn = clonedFieldset.querySelector('#delete_btn')
         del_btn.addEventListener('click', function() {
           var xhr = new XMLHttpRequest();
           xhr.open('POST', '/api/v1/deletetest', true)
           xhr.setRequestHeader('Content-Type', 'application/json');
-          const id = del_btn.parentNode.parentNode.id
+          const id = del_btn.parentNode.parentNode.parentNode.id
           xhr.onreadystatechange = function() {
               if (xhr.readyState === XMLHttpRequest.DONE) {
                   if (xhr.status !== 200) {
