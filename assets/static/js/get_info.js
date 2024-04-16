@@ -62,36 +62,33 @@ fetch('/api/v1/getinfo', options).then(function(response) {
         
         let tr = document.createElement("tr");
 
-// Создание и заполнение первой ячейки <td>
-let td = document.createElement("td");
-td.textContent = solDecoded.author;
-tr.appendChild(td);
+        // Создание и заполнение первой ячейки <td>
+        let td = document.createElement("td");
+        td.textContent = solDecoded.author;
+        tr.appendChild(td);
 
-// Создание и заполнение второй ячейки <td>
-let td1 = document.createElement("td");
-td1.textContent = solDecoded.class;
-tr.appendChild(td1);
+        // Создание и заполнение второй ячейки <td>
+        let td1 = document.createElement("td");
+        td1.textContent = solDecoded.class;
+        tr.appendChild(td1);
 
-// Создание и заполнение третьей ячейки <td>
-let td2 = document.createElement("td");
-td2.textContent = solDecoded.result + '/' + fieldsetData.tests[testId].max_score;
-tr.appendChild(td2);
+        // Создание и заполнение третьей ячейки <td>
+        let td2 = document.createElement("td");
+        td2.textContent = solDecoded.result + '/' + fieldsetData.tests[testId].max_score;
+        tr.appendChild(td2);
 
-// Создание и заполнение четвертой ячейки <td> с текстовым значением solDecoded.grade
-let td3 = document.createElement("td");
-td3.textContent = fieldsetData.tests[testId].grade;
-console.log(solDecoded.grade)
-if (td3.textContent == ""){
-  tr.append("undefiend");
-} else {
-  tr.appendChild(td3);
-}
+        // Создание и заполнение четвертой ячейки <td> с текстовым значением solDecoded.grade
+        let td3 = document.createElement("td");
+        td3.textContent = fieldsetData.tests[testId].grade;
+        console.log(solDecoded.grade)
+        if (td3.textContent == ""){
+          tr.append("undefiend");
+        } else {
+          tr.appendChild(td3);
+        }
 
-// Добавление строки <tr> к таблице
-table_result.appendChild(tr);
-
-
-
+        // Добавление строки <tr> к таблице
+        table_result.appendChild(tr);
         })
 
 
@@ -101,17 +98,18 @@ table_result.appendChild(tr);
 
         var del_btn = clonedFieldset.querySelector('#delete_btn')
         del_btn.addEventListener('click', function() {
+          var element = clonedFieldset;
+
           var xhr = new XMLHttpRequest();
           xhr.open('POST', '/api/v1/deletetest', true)
           xhr.setRequestHeader('Content-Type', 'application/json');
-          const id = del_btn.parentNode.parentNode.parentNode.id
+          const id = element.id
           xhr.onreadystatechange = function() {
               if (xhr.readyState === XMLHttpRequest.DONE) {
                   if (xhr.status !== 200) {
                       console.error('Ошибка при запросе: ' + xhr.status);
                   }
                   if (xhr.status !== 500) {
-                    var element = clonedFieldset;
                     if (element) {
                         element.parentNode.removeChild(element);
                     } else {
