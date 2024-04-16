@@ -50,7 +50,7 @@ fetch('/api/v1/getinfo', options).then(function(response) {
           alert("Ссылка на тест скопирована в буфер обмена")
       })
 
-        const table_result = clonedFieldset.querySelector("#table_result")
+        const table_result = clonedFieldset.querySelector("#table_body")
 
         if (fieldsetData.tests[testId].solutions.length === 0) {
           table_result.append('Решений нет.')
