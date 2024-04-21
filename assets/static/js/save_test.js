@@ -20,14 +20,21 @@ document.querySelector('.save_button').addEventListener('click', function() {
         return null;
     }
 
-    if (document.querySelector('#write_title').value === '') {
+    if (document.querySelector('#write_title').value === ''){
         alert("Не все поля заполнены!")
     } else {
         var data = {
             token: getCookie("t"),
             title: document.querySelector('#write_title').value,
             questions: [],
-            answers: []
+            answers: [],
+            conversion: {
+                "5": 0,
+                "4": 0,
+                "3": 0,
+            }
+
+
         }
 
         var err = false
@@ -91,7 +98,15 @@ document.querySelector('.save_button').addEventListener('click', function() {
 
         if (err) {
             alert("Не все поля заполнены/выбраны!")
-        } else {
+        } else if ((document.querySelector('#mark_5').value > data.questions.length) || 
+            (document.querySelector('#mark_4').value > data.questions.length) ||
+            (document.querySelector('#mark_3').value > data.questions.length) ||
+            (document.querySelector('#mark_5').value < 0) || 
+            (document.querySelector('#mark_4').value < 0) ||
+            (document.querySelector('#mark_3').value < 0)
+        ){
+            alert("Введено невозможное значение для оценки!")
+        } else{
             if (parameterT === '' || parameterT === null) {
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', '/api/v1/createtest');
