@@ -35,6 +35,7 @@ h1{
  
  /* Основная часть: фон весей страницы, настройки шрифта */
  body {
+  background: linear-gradient(315deg, #9fb3d1 0%, #f5f7f7 100%);
   font-family: inherit;
   margin: 0;
   font-size: 1.5rem;
@@ -42,7 +43,6 @@ h1{
   line-height: 1.5;
   align-items: center;
   background-attachment: fixed;
-  background: linear-gradient(315deg, #9fb3d1 0%, #f5f7f7 100%);
 }
  
  a#name{
