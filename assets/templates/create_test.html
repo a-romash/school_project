@@ -8,6 +8,20 @@
     <script src="/static/js/auth.js"></script>
   </head>
   <body>
+    <div class="area" >
+      <ul class="circles">
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+      </ul>
+  </div >
     <div class="topnav">
       <a href="/">Главная страница</a>
       <a class="split" id="exit">Выйти</a>
@@ -22,12 +36,10 @@
 
     <div id="fs_container">
       <div class="fs_questions" style="display: none;">
-        <div class="delete" id="delete_btn">
-          <button>Удалить вопрос</button>
-        </div>
         <fieldset id="fs_template">
                 <div class="flag">
                   <button id="type_btn">Несколько<br/>ответов</button>
+                  <button class="delete" id="delete_btn">Удалить вопрос</button>
                 </div>
                 <input id="question" type="text" placeholder="Введите вопрос">
                 <p></p>
