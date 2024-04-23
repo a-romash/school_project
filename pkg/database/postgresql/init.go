@@ -115,6 +115,8 @@ func Init(p *pgxpool.Pool) (err error) {
 		title VARCHAR(255) NOT NULL,
 		author VARCHAR(255) NOT NULL,
 		author_id INT REFERENCES users(id),
+		can_repeat BOOLEAN NOT NULL DEFAULT true,
+		conversion JSONB,
 		max_score INT NOT NULL,
 		questions JSONB[] NOT NULL,
 		answers VARCHAR(255)[] NOT NULL,
@@ -125,7 +127,8 @@ func Init(p *pgxpool.Pool) (err error) {
 	CREATE TABLE IF NOT EXISTS solutions (
 		author VARCHAR(255) NOT NULL,
 		class VARCHAR(255) NOT NULL,
-		answers VARCHAR(255)[] NOT NULL, 
+		answers VARCHAR(255)[] NOT NULL,
+		grade INT NOT NULL DEFAULT -1, 
 		result INT NOT NULL,
 		test_id UUID REFERENCES tests(id),
 		id SERIAL PRIMARY KEY

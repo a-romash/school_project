@@ -10,6 +10,7 @@ import (
 	"project/pkg/database/postgresql"
 	"project/pkg/model"
 	"reflect"
+	"strconv"
 	"time"
 
 	"github.com/google/uuid"
@@ -241,7 +242,12 @@ func (s *Server) HandleApiCreateNewTest(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	test = model.CreateTest(userName, data["title"].(string), userId, data["questions"].([]interface{}), data["answers"].([]interface{}))
+	conversion := make(map[string]int)
+	for k := range data["conversion"].(map[string]interface{}) {
+		conversion[k], _ = strconv.Atoi(data["conversion"].(map[string]interface{})[k].(string))
+	}
+
+	test = model.CreateTest(userName, data["title"].(string), userId, data["questions"].([]interface{}), data["answers"].([]interface{}), conversion)
 	fmt.Println(test.Questions...)
 	err = s.db.CreateNewTest(test)
 	if err != nil {
@@ -322,8 +328,12 @@ func (s *Server) HandleApiGetInfo(w http.ResponseWriter, r *http.Request) {
 				}
 				solutions[v]["solutions"] = append(solutions[v]["solutions"].([][]byte), byteSolution)
 			}
-			test, _ := s.db.GetTest(v)
-			solutions[v]["test_name"] = test.Title
+			test, err := s.db.GetTest(v)
+			if err != nil {
+				slog.Error("err while getting test " + err.Error())
+				http.Error(w, "internal error while getting test", http.StatusInternalServerError)
+			}
+			solutions[v]["title"] = test.Title
 			solutions[v]["created"] = test.Created
 			solutions[v]["updated"] = test.Updated
 			solutions[v]["amount"] = len(solutions[v]["solutions"].([][]byte))
@@ -374,6 +384,19 @@ func (s *Server) HandleApiGetResult(w http.ResponseWriter, r *http.Request) {
 	response["cur_score"] = cur_score
 	response["max_score"] = max_score
 
+	var grade int
+	switch {
+	case test.Conversion["5"] <= cur_score:
+		grade = 5
+	case test.Conversion["4"] <= cur_score:
+		grade = 4
+	case test.Conversion["3"] <= cur_score:
+		grade = 3
+	default:
+		grade = 2
+	}
+	response["grade"] = grade
+
 	byteResponse, err := json.Marshal(response)
 	if err != nil {
 		slog.Error("err marshalling response" + err.Error())
@@ -391,6 +414,7 @@ func (s *Server) HandleApiGetResult(w http.ResponseWriter, r *http.Request) {
 		Answers: answers,
 		TestId:  uuid.MustParse(data["test_id"].(string)),
 		Result:  cur_score,
+		Grade:   grade,
 	}
 
 	err = s.db.CreateNewSolution(solution)

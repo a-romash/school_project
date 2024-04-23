@@ -7,6 +7,7 @@ type Solution struct {
 	Class   string    `db:"class" json:"class"`
 	Answers []string  `db:"answers" json:"answers"`
 	Result  int       `db:"result" json:"result"`
+	Grade   int       `db:"grade" json:"grade"`
 	TestId  uuid.UUID `db:"test_id" json:"test_id"`
 	Id      int       `db:"id" json:"id"`
 }

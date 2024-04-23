@@ -79,13 +79,9 @@ fetch('/api/v1/getinfo', options).then(function(response) {
 
         // Создание и заполнение четвертой ячейки <td> с текстовым значением solDecoded.grade
         let td3 = document.createElement("td");
-        td3.textContent = fieldsetData.tests[testId].grade;
+        td3.textContent = solDecoded.grade;
         console.log(solDecoded.grade)
-        if (td3.textContent == ""){
-          tr.append("undefiend");
-        } else {
-          tr.appendChild(td3);
-        }
+        tr.appendChild(td3);
 
         // Добавление строки <tr> к таблице
         table_result.appendChild(tr);

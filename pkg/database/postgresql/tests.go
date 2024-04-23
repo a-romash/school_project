@@ -102,11 +102,11 @@ func (db *Postgresql) DeleteTest(test_id string) (err error) {
 
 func (db *Postgresql) CreateNewTest(test *model.Test) (err error) {
 	const sql = `
-	INSERT INTO tests (id, title, author, author_id, max_score, questions, answers)
-  	VALUES ($1, $2, $3, $4, $5, $6, $7);
+	INSERT INTO tests (id, title, author, author_id, max_score, questions, answers, conversion)
+  	VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
 	`
 
-	_, err = db.pool.Exec(context.Background(), sql, test.Id, test.Title, test.Author, test.AuthorId, test.Max_score, test.Questions, test.Answers)
+	_, err = db.pool.Exec(context.Background(), sql, test.Id, test.Title, test.Author, test.AuthorId, test.Max_score, test.Questions, test.Answers, test.Conversion)
 	if err != nil {
 		return err
 	}
@@ -115,11 +115,11 @@ func (db *Postgresql) CreateNewTest(test *model.Test) (err error) {
 
 func (db *Postgresql) CreateNewSolution(solution *model.Solution) (err error) {
 	const sql = `
-	INSERT INTO solutions (author, class, answers, result, test_id)
-  	VALUES ($1, $2, $3, $4, $5);
+	INSERT INTO solutions (author, class, answers, result, test_id, grade)
+  	VALUES ($1, $2, $3, $4, $5, $6);
 	`
 
-	_, err = db.pool.Exec(context.Background(), sql, solution.Author, solution.Class, solution.Answers, solution.Result, solution.TestId)
+	_, err = db.pool.Exec(context.Background(), sql, solution.Author, solution.Class, solution.Answers, solution.Result, solution.TestId, solution.Grade)
 	if err != nil {
 		return err
 	}

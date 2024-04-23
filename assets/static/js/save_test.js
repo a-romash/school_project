@@ -108,6 +108,10 @@ document.querySelector('.save_button').addEventListener('click', function() {
             alert("Введено невозможное значение для оценки!")
         } else{
             if (parameterT === '' || parameterT === null) {
+                data.conversion["5"] = document.querySelector('#mark_5').value
+                data.conversion["4"] = document.querySelector('#mark_4').value
+                data.conversion["3"] = document.querySelector('#mark_3').value
+
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', '/api/v1/createtest');
                 xhr.setRequestHeader('Content-Type', 'application/json');

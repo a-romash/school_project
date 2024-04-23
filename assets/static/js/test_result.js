@@ -5,7 +5,10 @@ if (data === null || data === '') {
     window.location.href = '/'
 }
 
+console.log(data)
+
 document.querySelector('#result').textContent = data.cur_score + '/' + data.max_score
+document.querySelector('#mark').textContent = data.grade
 
 document.querySelector('#btn_restart').addEventListener('click', function() {
     window.location.href = '/test?t=' + data.test_id
